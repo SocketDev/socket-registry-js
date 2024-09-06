@@ -1,0 +1,1 @@
+export = Function['bind']

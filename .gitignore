@@ -1,0 +1,5 @@
+.DS_Store
+/.eslintcache
+/.vscode
+**/node_modules
+/*.tsbuildinfo

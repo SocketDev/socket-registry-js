@@ -1,0 +1,16 @@
+{
+  "name": "@socketregistry/typedarray.prototype.slice",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketDev/socket-registry-js",
+    "directory": "packages/cleanup/typedarray.prototype.slice"
+  },
+  "main": "./index.js",
+  "sideEffects": false,
+  "files": [
+    "*.d.ts",
+    "*.js"
+  ]
+}

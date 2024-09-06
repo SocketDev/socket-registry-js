@@ -1,0 +1,33 @@
+'use strict'
+
+const shimDate = require('./Date/shim')
+const shimDateNow = require('./Date.now/shim')
+const shimDateParse = require('./Date.parse/shim')
+const shimGetDate = require('./Date.prototype.getDate/shim')
+const shimGetFullYear = require('./Date.prototype.getFullYear/shim')
+const shimGetMonth = require('./Date.prototype.getMonth/shim')
+const shimGetUTCDate = require('./Date.prototype.getUTCDate/shim')
+const shimGetUTCFullYear = require('./Date.prototype.getUTCFullYear/shim')
+const shimGetUTCMonth = require('./Date.prototype.getUTCMonth/shim')
+const shimToDateString = require('./Date.prototype.toDateString/shim')
+const shimToISOString = require('./Date.prototype.toISOString/shim')
+const shimToJSON = require('./Date.prototype.toJSON/shim')
+const shimToString = require('./Date.prototype.toString/shim')
+const shimToUTCString = require('./Date.prototype.toUTCString/shim')
+
+module.exports = function shimAllDate() {
+  shimDateParse()
+  shimDateNow()
+  shimGetDate()
+  shimGetFullYear()
+  shimGetMonth()
+  shimGetUTCDate()
+  shimGetUTCFullYear()
+  shimGetUTCMonth()
+  shimToDateString()
+  shimToISOString()
+  shimToString()
+  shimToUTCString()
+  shimToJSON()
+  shimDate()
+}

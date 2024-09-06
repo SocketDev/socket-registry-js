@@ -1,0 +1,17 @@
+{
+  "name": "@socketregistry/is-core-module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketDev/socket-registry-js",
+    "directory": "packages/cleanup/is-core-module"
+  },
+  "main": "./index.js",
+  "sideEffects": false,
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.json"
+  ]
+}

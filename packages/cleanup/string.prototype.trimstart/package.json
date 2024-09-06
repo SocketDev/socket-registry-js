@@ -1,0 +1,16 @@
+{
+  "name": "@socketregistry/string.prototype.trimstart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketDev/socket-registry-js",
+    "directory": "packages/cleanup/string.prototype.trimstart"
+  },
+  "main": "./index.js",
+  "sideEffects": false,
+  "files": [
+    "*.d.ts",
+    "*.js"
+  ]
+}

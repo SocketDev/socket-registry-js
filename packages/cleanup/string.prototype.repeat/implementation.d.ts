@@ -1,0 +1,1 @@
+export = (typeof String)['repeat']
