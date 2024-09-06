@@ -1,6 +1,11 @@
 'use strict'
 
 const EMPTY_FILE = '/* empty */'
+const LICENSE_ID = 'MIT'
+const NPM_ORG = 'socketregistry'
+const NPM_SCOPE = `@${NPM_ORG}`
+const REPO_ORG = 'SocketDev'
+const REPO_NAME = 'socket-registry-js'
 const VERSION = '1.0.0'
 
 const { compare: localCompare } = new Intl.Collator()
@@ -22,12 +27,12 @@ function createPackageJson(pkgName, pkgPath, options = {}) {
     version = VERSION
   } = options
   return {
-    name: `@socketregistry/${pkgName}`,
+    name: `${NPM_SCOPE}/${pkgName}`,
     version,
-    license: 'MIT',
+    license: LICENSE_ID,
     repository: {
       type: 'git',
-      url: 'https://github.com/SocketDev/socket-registry-js',
+      url: `https://github.com/${REPO_ORG}/${REPO_NAME}`,
       directory: pkgPath
     },
     ...{
@@ -49,7 +54,8 @@ function createPackageJson(pkgName, pkgPath, options = {}) {
 }
 
 function formatJsSrc(src) {
-  return `'use strict'\n\n${src.trim() || EMPTY_FILE}\n`
+  const trimmed = src.trim()
+  return trimmed.length ? `'use strict'\n\n${trimmed}\n` : `${EMPTY_FILE}\n`
 }
 
 module.exports = {
