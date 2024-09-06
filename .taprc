@@ -1,0 +1,13 @@
+# vim: set filetype=yaml :
+timeout: 1200
+color: true
+include:
+  - test/**/*.test.ts
+tsconfig: tsconfig.json
+typecheck: false
+allow-incomplete-coverage: true
+coverage-report:
+  - none
+plugin:
+  - "!@tapjs/spawn"
+  - "!@tapjs/stdin"

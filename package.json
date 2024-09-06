@@ -8,6 +8,7 @@
     "lint": "NODE_OPTIONS=\"--max-old-space-size=10240\" eslint --quiet .",
     "lint:fix": "npm run lint:fix:fast && NODE_OPTIONS=\"--max-old-space-size=10240\" eslint --quiet --cache --fix .",
     "lint:fix:fast": "prettier --cache --log-level warn --write .",
+    "test": "tap",
     "update:manifest": "node ./scripts/update-manifest.js"
   },
   "devDependencies": {
@@ -21,6 +22,7 @@
     "eslint-plugin-import": "^2.29.1",
     "fs-extra": "^11.2.0",
     "prettier": "3.3.3",
+    "tap": "^21.0.1",
     "typescript": "~5.4.5"
   },
   "engines": {
