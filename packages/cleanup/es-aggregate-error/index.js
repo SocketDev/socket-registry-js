@@ -10,8 +10,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function AggregateError(...args) {
-    return new Impl(...args)
+  function AggregateError(errors, message = '') {
+    return new Impl(errors, message)
   },
   {
     getPolyfill: desc(require('./polyfill')),

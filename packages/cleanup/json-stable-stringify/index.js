@@ -56,7 +56,8 @@ module.exports = function stableStringify(obj, opts = {}) {
   const cycles = typeof opts?.cycles === 'boolean' && opts.cycles
   const replacer =
     typeof rawReplacer === 'function'
-      ? (thisArg, ...args) => Reflect.apply(rawReplacer, thisArg, args)
+      ? (thisArg, key, value) =>
+          Reflect.apply(rawReplacer, thisArg, [key, value])
       : defaultReplacer
   const space = typeof rawSpace === 'number' ? ' '.repeat(rawSpace) : rawSpace
   let cmpOpt

@@ -9,8 +9,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function getPrototypeOf(...args) {
-    return impl(...args)
+  function getPrototypeOf(object) {
+    return impl(object)
   },
   {
     getPolyfill: desc(require('./polyfill')),

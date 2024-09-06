@@ -10,7 +10,7 @@ function needsOverride(value) {
 }
 
 module.exports = function safeArrayConcat(...args) {
-  for (var i = 0, { length } = args; i < length; i += 1) {
+  for (let i = 0, { length } = args; i < length; i += 1) {
     const arg = args[i]
     if (arg !== null && typeof arg === 'object' && needsOverride(arg)) {
       const array = Array.isArray(arg) ? Array.from(arg) : [arg]

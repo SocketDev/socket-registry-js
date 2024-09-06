@@ -9,8 +9,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function toSorted(thisArg, ...args) {
-    return Reflect.apply(impl, thisArg, args)
+  function toSorted(thisArg, compareFn) {
+    return Reflect.apply(impl, thisArg, [compareFn])
   },
   {
     getPolyfill: desc(require('./polyfill')),

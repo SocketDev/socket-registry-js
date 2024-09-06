@@ -9,8 +9,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function getOwnPropertyDescriptors(...args) {
-    return impl(...args)
+  function getOwnPropertyDescriptors(object) {
+    return impl(object)
   },
   {
     getPolyfill: desc(require('./polyfill')),

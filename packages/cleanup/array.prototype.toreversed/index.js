@@ -1,3 +1,4 @@
+/// <reference lib="es2023" />
 'use strict'
 
 const impl = require('./implementation')
@@ -9,8 +10,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function toReversed(thisArg, ...args) {
-    return Reflect.apply(impl, thisArg, args)
+  function toReversed(thisArg) {
+    return Reflect.apply(impl, thisArg, [])
   },
   {
     getPolyfill: desc(require('./polyfill')),

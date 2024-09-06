@@ -9,8 +9,8 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function endsWith(thisArg, ...args) {
-    return Reflect.apply(impl, thisArg, args)
+  function endsWith(thisArg, searchString, endPosition = thisArg.length) {
+    return Reflect.apply(impl, thisArg, [searchString, endPosition])
   },
   {
     getPolyfill: desc(require('./polyfill')),
