@@ -1,3 +1,4 @@
+/// <reference lib="es2023" />
 'use strict'
 
 const impl = require('./implementation')

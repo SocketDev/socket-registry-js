@@ -13,7 +13,7 @@
     "noEmit": true,
     "noEmitOnError": true,
     "resolveJsonModule": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

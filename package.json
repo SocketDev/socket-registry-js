@@ -7,7 +7,8 @@
     "check:tsc": "tsc",
     "lint": "NODE_OPTIONS=\"--max-old-space-size=10240\" eslint --quiet .",
     "lint:fix": "npm run lint:fix:fast && NODE_OPTIONS=\"--max-old-space-size=10240\" eslint --quiet --cache --fix .",
-    "lint:fix:fast": "prettier --cache --log-level warn --write ."
+    "lint:fix:fast": "prettier --cache --log-level warn --write .",
+    "update:manifest": "node ./scripts/update-manifest.js"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
