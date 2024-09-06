@@ -20,30 +20,28 @@
       "packages/cleanup/array.prototype.reduce",
       [
         "packages/cleanup/array.prototype.toreversed",
-        {
-          "engines": {
-            "node": ">=20.0.0"
-          }
-        }
+        {"engines":{"node":">=20.0.0"}}
       ],
       [
         "packages/cleanup/array.prototype.tosorted",
-        {
-          "engines": {
-            "node": ">=20.0.0"
-          }
-        }
+        {"engines":{"node":">=20.0.0"}}
       ],
       "packages/cleanup/arraybuffer.prototype.slice",
       "packages/cleanup/assert",
       "packages/cleanup/asynciterator.prototype",
       "packages/cleanup/available-typed-arrays",
       "packages/cleanup/date",
-      "packages/cleanup/deep-equal",
+      [
+        "packages/cleanup/deep-equal",
+        {"browser":true}
+      ],
       "packages/cleanup/define-properties",
       "packages/cleanup/es-aggregate-error",
       "packages/cleanup/es-define-property",
-      "packages/cleanup/es-get-iterator",
+      [
+        "packages/cleanup/es-get-iterator",
+        {"browser":true}
+      ],
       "packages/cleanup/es-set-tostringtag",
       "packages/cleanup/es6-object-assign",
       "packages/cleanup/function-bind",
@@ -59,26 +57,74 @@
       "packages/cleanup/has-tostringtag",
       "packages/cleanup/hasown",
       "packages/cleanup/internal-slot",
-      "packages/cleanup/is-arguments",
-      "packages/cleanup/is-array-buffer",
-      "packages/cleanup/is-bigint",
-      "packages/cleanup/is-boolean-object",
+      [
+        "packages/cleanup/is-arguments",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-array-buffer",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-bigint",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-boolean-object",
+        {"browser":true}
+      ],
       "packages/cleanup/is-core-module",
-      "packages/cleanup/is-date-object",
-      "packages/cleanup/is-generator-function",
-      "packages/cleanup/is-map",
+      [
+        "packages/cleanup/is-date-object",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-generator-function",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-map",
+        {"browser":true}
+      ],
       "packages/cleanup/is-nan",
       "packages/cleanup/is-negative-zero",
-      "packages/cleanup/is-number-object",
-      "packages/cleanup/is-regex",
-      "packages/cleanup/is-set",
-      "packages/cleanup/is-shared-array-buffer",
-      "packages/cleanup/is-string",
-      "packages/cleanup/is-symbol",
-      "packages/cleanup/is-typed-array",
-      "packages/cleanup/is-weakmap",
+      [
+        "packages/cleanup/is-number-object",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-regex",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-set",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-shared-array-buffer",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-string",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-symbol",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-typed-array",
+        {"browser":true}
+      ],
+      [
+        "packages/cleanup/is-weakmap",
+        {"browser":true}
+      ],
       "packages/cleanup/is-weakref",
-      "packages/cleanup/is-weakset",
+      [
+        "packages/cleanup/is-weakset",
+        {"browser":true}
+      ],
       "packages/cleanup/isarray",
       "packages/cleanup/iterator.prototype",
       "packages/cleanup/json-stable-stringify",
@@ -93,11 +139,7 @@
       "packages/cleanup/object.getprototypeof",
       [
         "packages/cleanup/object.groupby",
-        {
-          "engines": {
-            "node": ">=21.0.0"
-          }
-        }
+        {"engines":{"node":">=21.0.0"}}
       ],
       "packages/cleanup/object.hasown",
       "packages/cleanup/object.values",

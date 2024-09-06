@@ -15,21 +15,33 @@ const packagesPath = path.join(rootPath, 'packages')
   for await (const cat of category) {
     if (cat.isDirectory()) {
       const entries = []
-      const categoryPath = path.join(packagesPath, cat.name)
-      const pkgBasePath = path
-        .relative(rootPath, categoryPath)
+      const absCategoryPath = path.join(packagesPath, cat.name)
+      const relCategoryPath = path
+        .relative(rootPath, absCategoryPath)
         .replace(/^[.\\/]+/, '')
-      const packages = await fs.opendir(categoryPath)
+      const packages = await fs.opendir(absCategoryPath)
       for await (const pack of packages) {
         if (pack.isDirectory()) {
           const pkgName = pack.name
-          const pkgPath = `${pkgBasePath}/${pkgName}`
-          const pkg = await fs.readJSON(path.join(pkgPath, 'package.json'))
-          const { engines } = pkg
-          const data = [pkgPath]
-          if (engines) {
-            data[1] = { engines }
+          const relPkgPath = `${relCategoryPath}/${pkgName}`
+          const absPkgPath = `${absCategoryPath}/${pkgName}`
+          const pkgJSON = await fs.readJSON(
+            path.join(absPkgPath, 'package.json')
+          )
+          const browser = !!pkgJSON.browser
+          const { engines } = pkgJSON
+          const data = [relPkgPath]
+
+          let metadata
+          if (browser) {
+            if (metadata === undefined) metadata = {}
+            metadata.browser = true
           }
+          if (engines) {
+            if (metadata === undefined) metadata = {}
+            metadata.engines = engines
+          }
+          if (metadata) data[1] = metadata
           entries.push(data.length === 1 ? data[0] : data)
         }
       }
@@ -42,7 +54,12 @@ const packagesPath = path.join(rootPath, 'packages')
       }
     }
   }
-  await fs.writeJSON(path.join(rootPath, 'manifest.json'), manifest, {
-    spaces: 2
-  })
+  const jsonUTF = JSON.stringify(manifest, null, 2).replace(
+    /(?<=\n)(?<indent>\s+)(?<block>\{[\s\S]*?\n\1\})/g,
+    (match, indent, block) =>
+      block.includes('"')
+        ? `${indent}${JSON.stringify(JSON.parse(block))}`
+        : match
+  )
+  await fs.writeFile(path.join(rootPath, 'manifest.json'), jsonUTF, 'utf8')
 })()
