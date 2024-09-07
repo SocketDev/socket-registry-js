@@ -11,5 +11,8 @@ declare interface StableStringifyOptions {
   replacer?: (this: any, key: string, value: any) => any
   space?: string | number
 }
-declare function stableStringify(value: any, opts?: StableStringifyOptions): string | undefined
+declare function stableStringify(
+  value: any,
+  opts?: StableStringifyOptions
+): string | undefined
 export = stableStringify

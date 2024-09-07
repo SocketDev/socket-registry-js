@@ -4,7 +4,6 @@ const { exec } = RegExp.prototype
 const patternThrowsMarker = {
   __proto__: null,
   [Symbol.toPrimitive]() {
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw this
   }
 }

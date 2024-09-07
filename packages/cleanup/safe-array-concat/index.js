@@ -1,7 +1,6 @@
 'use strict'
 
 const empty = []
-// eslint-disable-next-line no-self-assign
 empty.concat = empty.concat
 
 function needsOverride(value) {

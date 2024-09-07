@@ -35,20 +35,12 @@ function createPackageJson(pkgName, pkgPath, options = {}) {
       url: `https://github.com/${REPO_ORG}/${REPO_NAME}`,
       directory: pkgPath
     },
-    ...{
-      ...(nodeBranch ? { browser: './index.js' } : {})
-    },
+    ...(nodeBranch ? { browser: './index.js' } : {}),
     main: `${nodeBranch ? './node.js' : './index.js'}`,
     sideEffects: false,
-    ...{
-      ...(dependencies ? { dependencies } : {})
-    },
-    ...{
-      ...(overrides ? { overrides, resolutions: overrides } : {})
-    },
-    ...{
-      ...(engines ? { engines } : {})
-    },
+    ...(dependencies ? { dependencies } : {}),
+    ...(overrides ? { overrides, resolutions: overrides } : {}),
+    ...(engines ? { engines } : {}),
     files: files ?? ['*.d.ts', '*.js']
   }
 }
