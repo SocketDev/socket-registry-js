@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: RegExpProtoFlags
 }: {
-  x: ((
-    thisArg: RegExp,
-    ...args: Parameters<RegExp['flags']>
-  ) => ReturnType<RegExp['flags']>) & {
-    getPolyfill(): RegExp['flags']
-    shim(): () => RegExp['flags']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = RegExpProtoFlags

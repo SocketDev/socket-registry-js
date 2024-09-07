@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoRepeat
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['repeat']>
-  ) => ReturnType<String['repeat']>) & {
-    getPolyfill(): String['repeat']
-    shim(): () => String['repeat']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoRepeat

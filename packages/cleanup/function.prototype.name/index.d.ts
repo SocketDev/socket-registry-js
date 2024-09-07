@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: FunctionProtoName
 }: {
-  x: ((
-    thisArg: Function,
-    ...args: Parameters<Function['name']>
-  ) => ReturnType<Function['name']>) & {
-    getPolyfill(): Function['name']
-    shim(): () => Function['name']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = FunctionProtoName

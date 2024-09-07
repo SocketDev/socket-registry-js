@@ -1,2 +1,3 @@
-declare function shim(): () => typeof Object.groupBy
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

@@ -1,2 +1,2 @@
-
-export = (this: Function) => Function['name']
+declare function getName(this: Function): string
+export = getName

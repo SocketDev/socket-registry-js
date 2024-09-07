@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoMatchAll
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['matchAll']>
-  ) => ReturnType<String['matchAll']>) & {
-    getPolyfill(): String['matchAll']
-    shim(): () => String['matchAll']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoMatchAll

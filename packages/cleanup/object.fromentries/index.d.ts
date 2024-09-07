@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ObjectFromEntries
 }: {
-  x: typeof Object.fromEntries & {
-    getPolyfill(): typeof Object.fromEntries
-    shim(): () => typeof Object.fromEntries
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ObjectFromEntries

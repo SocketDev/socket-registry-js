@@ -1,4 +1,3 @@
-/// <reference lib="es2021" />
 'use strict'
 
 const Impl = require('./implementation')

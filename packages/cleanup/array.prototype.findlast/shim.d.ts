@@ -1,2 +1,3 @@
-declare function shim(): () => Array<any>['findLast']
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

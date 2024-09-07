@@ -35,7 +35,7 @@
       "packages/cleanup/define-properties",
       "packages/cleanup/es-aggregate-error",
       "packages/cleanup/es-define-property",
-      ["packages/cleanup/es-get-iterator", { "browser": true }],
+      "packages/cleanup/es-get-iterator",
       "packages/cleanup/es-set-tostringtag",
       "packages/cleanup/es6-object-assign",
       "packages/cleanup/function-bind",

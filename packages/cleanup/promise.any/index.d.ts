@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: PromiseAny
 }: {
-  x: typeof Promise.any & {
-    getPolyfill(): typeof Promise.any
-    shim(): () => typeof Promise.any
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = PromiseAny

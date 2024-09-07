@@ -1,2 +1,3 @@
-declare function getPolyfill(): typeof Object.values
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

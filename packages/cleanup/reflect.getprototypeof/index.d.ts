@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ReflectGetPrototypeOf
 }: {
-  x: typeof Reflect.getPrototypeOf & {
-    getPolyfill(): typeof Reflect.getPrototypeOf
-    shim(): () => typeof Reflect.getPrototypeOf
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ReflectGetPrototypeOf

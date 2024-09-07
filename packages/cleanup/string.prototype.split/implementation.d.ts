@@ -1,1 +1,1 @@
-export = (typeof String)['split']
+export = String.prototype.split

@@ -1,2 +1,3 @@
-declare function shim(): () => Array<any>['flat']
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

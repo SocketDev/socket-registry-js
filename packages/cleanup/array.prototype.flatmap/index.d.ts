@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayProtoFlatMap
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Array<T[number]>['flatMap']>
-  ) => ReturnType<Array<T[number]>['flatMap']>) & {
-    getPolyfill(): Array<any>['flatMap']
-    shim(): () => Array<any>['flatMap']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayProtoFlatMap

@@ -1,1 +1,1 @@
-export = (typeof String)['includes']
+export = String.prototype.includes

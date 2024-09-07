@@ -1,1 +1,1 @@
-export = (typeof String)['trimEnd']
+export = String.prototype.trimEnd

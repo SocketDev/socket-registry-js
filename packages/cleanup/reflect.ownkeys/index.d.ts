@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ReflectOwnKeys
 }: {
-  x: typeof Reflect.ownKeys & {
-    getPolyfill(): typeof Reflect.ownKeys
-    shim(): () => typeof Reflect.ownKeys
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ReflectOwnKeys

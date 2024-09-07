@@ -22,6 +22,7 @@ describe('Packages', async () => {
       for await (const pack of packages) {
         if (pack.isDirectory()) {
           const pkgName = pack.name
+
           describe(`${pkgName}:`, async () => {
             const absPkgPath = `${absCategoryPath}/${pkgName}`
             const pkgJsonPath = path.join(absPkgPath, 'package.json')

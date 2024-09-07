@@ -1,4 +1,3 @@
-/// <reference lib="esnext" />
 'use strict'
 
 const impl = require('./implementation')

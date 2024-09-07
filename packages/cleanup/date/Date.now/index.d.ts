@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: DateNow
 }: {
-  x: typeof Date.now & {
-    getPolyfill(): typeof Date.now
-    shim(): () => typeof Date.now
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = DateNow

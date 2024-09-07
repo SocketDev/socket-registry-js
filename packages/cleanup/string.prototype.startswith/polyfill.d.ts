@@ -1,2 +1,3 @@
-declare function getPolyfill(): String['startsWith']
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

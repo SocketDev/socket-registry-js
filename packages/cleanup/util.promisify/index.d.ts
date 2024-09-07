@@ -1,13 +1,10 @@
-/// <reference types="node" />
-import { promisify } from 'node:util'
+import Impl from './implementation'
 declare const {
   x: UtilPromisify
 }: {
-  x: typeof promisify & {
-    custom: symbol
-    customPromisifyArgs: symbol
-    getPolyfill(): typeof promisify
-    shim(): () => typeof promisify
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = UtilPromisify

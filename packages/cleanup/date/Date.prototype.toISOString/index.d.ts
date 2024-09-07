@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: DateProtoToISOString
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Date['toISOString']>
-  ) => ReturnType<Date['toISOString']>) & {
-    getPolyfill(): Date['toISOString']
-    shim(): () => Date['toISOString']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = DateProtoToISOString

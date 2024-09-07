@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoTrimEnd
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['trimEnd']>
-  ) => ReturnType<String['trimEnd']>) & {
-    getPolyfill(): String['trimEnd']
-    shim(): () => String['trimEnd']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoTrimEnd

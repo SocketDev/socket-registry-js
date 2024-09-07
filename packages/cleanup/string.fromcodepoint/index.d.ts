@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringFromCodePoint
 }: {
-  x: typeof String.fromCodePoint & {
-    getPolyfill(): typeof String.fromCodePoint
-    shim(): () => typeof String.fromCodePoint
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringFromCodePoint

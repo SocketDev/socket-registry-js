@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayFrom
 }: {
-  x: typeof Array.from & {
-    getPolyfill(): typeof Array.from
-    shim(): () => typeof Array.from
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayFrom

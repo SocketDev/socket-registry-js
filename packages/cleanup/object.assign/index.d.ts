@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ObjectAssign
 }: {
-  x: typeof Object.assign & {
-    getPolyfill(): typeof Object.assign
-    shim(): () => typeof Object.assign
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ObjectAssign

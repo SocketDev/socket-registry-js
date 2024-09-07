@@ -1,1 +1,5 @@
-export = { atob, btoa }
+declare interface Base64 {
+  atob: typeof atob
+  btoa: typeof btoa
+}
+export = Base64

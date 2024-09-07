@@ -1,1 +1,1 @@
-export = (typeof String)['matchAll']
+export = String.prototype.matchAll

@@ -1,1 +1,1 @@
-export = (typeof String)['codePointAt']
+export = String.prototype.codePointAt

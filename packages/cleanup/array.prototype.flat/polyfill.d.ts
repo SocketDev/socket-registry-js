@@ -1,2 +1,3 @@
-declare function getPolyfill(): Array<any>['flat']
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

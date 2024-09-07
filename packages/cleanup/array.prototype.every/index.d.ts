@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayProtoEvery
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Array<T[number]>['every']>
-  ) => ReturnType<Array<T[number]>['every']>) & {
-    getPolyfill(): Array<any>['every']
-    shim(): () => Array<any>['every']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayProtoEvery

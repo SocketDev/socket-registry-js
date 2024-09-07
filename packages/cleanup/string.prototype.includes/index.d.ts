@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoIncludes
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['includes']>
-  ) => ReturnType<String['includes']>) & {
-    getPolyfill(): String['includes']
-    shim(): () => String['includes']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoIncludes

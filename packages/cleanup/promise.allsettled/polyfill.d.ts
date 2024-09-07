@@ -1,2 +1,3 @@
-declare function getPolyfill(): typeof Promise.allSettled
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

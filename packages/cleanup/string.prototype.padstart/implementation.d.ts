@@ -1,1 +1,1 @@
-export = (typeof String)['padStart']
+export = String.prototype.padStart

@@ -1,2 +1,3 @@
-declare function shim(): () => ArrayBuffer['slice']
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

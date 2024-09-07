@@ -1,2 +1,3 @@
-declare function getPolyfill(): String['repeat']
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

@@ -3,6 +3,7 @@
 const path = require('node:path')
 
 const fs = require('fs-extra')
+const prettier = require('prettier')
 
 const { localCompare } = require('./utils')
 
@@ -54,12 +55,8 @@ const packagesPath = path.join(rootPath, 'packages')
       }
     }
   }
-  const jsonUTF = JSON.stringify(manifest, null, 2).replace(
-    /(?<=\n)(?<indent>\s+)(?<block>\{[\s\S]*?\n\1\})/g,
-    (match, indent, block) =>
-      block.includes('"')
-        ? `${indent}${JSON.stringify(JSON.parse(block))}`
-        : match
-  )
-  await fs.writeFile(path.join(rootPath, 'manifest.json'), jsonUTF, 'utf8')
+  const output = await prettier.format(JSON.stringify(manifest), {
+    parser: 'json'
+  })
+  await fs.writeFile(path.join(rootPath, 'manifest.json'), output, 'utf8')
 })()

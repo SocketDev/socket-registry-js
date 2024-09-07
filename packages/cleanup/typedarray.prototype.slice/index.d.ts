@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: TypedArrayProtoSlice
 }: {
-  x: ((
-    thisArg: TypedArray,
-    ...args: Parameters<TypedArray['slice']>
-  ) => ReturnType<TypedArray['slice']>) & {
-    getPolyfill(): TypedArray['slice']
-    shim(): () => TypedArray['slice']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = TypedArrayProtoSlice

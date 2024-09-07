@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: PromiseAllSettled
 }: {
-  x: typeof Promise.allSettled & {
-    getPolyfill(): typeof Promise.allSettled
-    shim(): () => typeof Promise.allSettled
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = PromiseAllSettled

@@ -1,2 +1,3 @@
-declare function shim(): () => typeof Reflect.getPrototypeOf
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

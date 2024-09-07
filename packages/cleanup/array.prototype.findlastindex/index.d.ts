@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayProtoFindLastIndex
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Array<T[number]>['findLastIndex']>
-  ) => ReturnType<Array<T[number]>['findLastIndex']>) & {
-    getPolyfill(): Array<any>['findLastIndex']
-    shim(): () => Array<any>['findLastIndex']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayProtoFindLastIndex

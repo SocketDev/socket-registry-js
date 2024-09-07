@@ -1,1 +1,1 @@
-export = (typeof String)['trimRight']
+export = String.prototype.trimRight

@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoSplit
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['split']>
-  ) => ReturnType<String['split']>) & {
-    getPolyfill(): String['split']
-    shim(): () => String['split']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoSplit

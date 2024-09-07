@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayProtoReduce
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Array<T[number]>['reduce']>
-  ) => ReturnType<Array<T[number]>['reduce']>) & {
-    getPolyfill(): Array<any>['reduce']
-    shim(): () => Array<any>['reduce']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayProtoReduce

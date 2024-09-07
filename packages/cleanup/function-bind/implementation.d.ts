@@ -1,1 +1,1 @@
-export = Function['bind']
+export = Function.bind

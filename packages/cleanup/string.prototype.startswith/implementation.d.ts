@@ -1,1 +1,1 @@
-export = (typeof String)['startsWith']
+export = String.prototype.startsWith

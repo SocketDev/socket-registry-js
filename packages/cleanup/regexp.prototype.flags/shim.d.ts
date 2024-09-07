@@ -1,2 +1,3 @@
-declare function shim(): () => RegExp['flags']
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

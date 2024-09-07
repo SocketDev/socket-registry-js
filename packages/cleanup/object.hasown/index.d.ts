@@ -1,9 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ObjectHasOwn
 }: {
-  x: typeof Object.hasOwn & {
-    getPolyfill(): typeof Object.hasOwn
-    shim(): () => typeof Object.hasOwn
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ObjectHasOwn

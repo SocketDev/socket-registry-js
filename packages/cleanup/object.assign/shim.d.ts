@@ -1,2 +1,3 @@
-declare function shim(): () => typeof Object.assign
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

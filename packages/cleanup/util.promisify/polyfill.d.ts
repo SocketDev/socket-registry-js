@@ -1,4 +1,3 @@
-import { promisify as builtinPromisify } from 'node:util'
-
-declare function promisify(): typeof Array.of
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

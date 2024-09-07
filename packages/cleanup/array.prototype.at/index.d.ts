@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: ArrayProtoAt
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Array<T[number]>['at']>
-  ) => ReturnType<Array<T[number]>['at']>) & {
-    getPolyfill(): Array<any>['at']
-    shim(): () => Array<any>['at']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = ArrayProtoAt

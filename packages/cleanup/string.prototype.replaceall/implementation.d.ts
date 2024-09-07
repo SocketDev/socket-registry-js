@@ -1,1 +1,1 @@
-export = (typeof String)['replaceAll']
+export = String.prototype.replaceAll

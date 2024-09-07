@@ -1,2 +1,3 @@
-declare function shim(): () => Date['getDate']
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim

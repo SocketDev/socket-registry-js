@@ -1,1 +1,1 @@
-export = (typeof String)['endsWith']
+export = String.prototype.endsWith

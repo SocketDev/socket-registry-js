@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: StringProtoPadEnd
 }: {
-  x: ((
-    thisArg: string,
-    ...args: Parameters<String['padEnd']>
-  ) => ReturnType<String['padEnd']>) & {
-    getPolyfill(): String['padEnd']
-    shim(): () => String['padEnd']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = StringProtoPadEnd

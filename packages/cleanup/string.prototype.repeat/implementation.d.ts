@@ -1,1 +1,1 @@
-export = (typeof String)['repeat']
+export = String.prototype.repeat

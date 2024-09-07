@@ -1,2 +1,3 @@
-declare function getPolyfill(): String['matchAll']
+import Impl from './implementation'
+declare function getPolyfill(): () => typeof Impl
 export = getPolyfill

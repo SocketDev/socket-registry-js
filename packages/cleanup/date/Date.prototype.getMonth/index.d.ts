@@ -1,12 +1,10 @@
+import Impl from './implementation'
 declare const {
   x: DateProtoGetMonth
 }: {
-  x: (<T>(
-    thisArg: T,
-    ...args: Parameters<Date['getMonth']>
-  ) => ReturnType<Date['getMonth']>) & {
-    getPolyfill(): Date['getMonth']
-    shim(): () => Date['getMonth']
+  x: typeof Impl & {
+    getPolyfill(): typeof Impl
+    shim(): typeof Impl
   }
 }
 export = DateProtoGetMonth

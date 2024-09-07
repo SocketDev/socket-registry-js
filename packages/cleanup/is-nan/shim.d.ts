@@ -1,2 +1,3 @@
-declare function shim(): () => typeof Number.isNaN
+import Impl from './implementation'
+declare function shim(): () => typeof Impl
 export = shim
