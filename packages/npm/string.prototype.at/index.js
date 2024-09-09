@@ -9,7 +9,7 @@ const desc = value => ({
 })
 
 module.exports = Object.defineProperties(
-  function at(thisArg, index) {
+  function at(thisArg, index = 0) {
     return Reflect.apply(impl, thisArg, [index])
   },
   {
