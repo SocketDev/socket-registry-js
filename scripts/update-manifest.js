@@ -3,51 +3,51 @@
 const path = require('node:path')
 
 const fs = require('fs-extra')
+const { PackageURL } = require('packageurl-js')
 const prettier = require('prettier')
+const { glob: tinyGlob } = require('tinyglobby')
 
 const { localCompare } = require('./utils')
 
 const rootPath = path.resolve(__dirname, '..')
-const packagesPath = path.join(rootPath, 'packages')
+const relPackagesPath = 'packages'
+const absPackagesPath = path.join(rootPath, relPackagesPath)
 
 ;(async () => {
-  const manifest = { packages: {} }
-  const category = await fs.opendir(packagesPath)
-  for await (const cat of category) {
-    if (cat.isDirectory()) {
-      const entries = []
-      const absCategoryPath = path.join(packagesPath, cat.name)
-      const relCategoryPath = path
-        .relative(rootPath, absCategoryPath)
-        .replace(/^[.\\/]+/, '')
-      const packages = await fs.opendir(absCategoryPath)
-      for await (const pack of packages) {
-        if (pack.isDirectory()) {
-          const pkgName = pack.name
-          const relPkgPath = `${relCategoryPath}/${pkgName}`
-          const absPkgPath = `${absCategoryPath}/${pkgName}`
-          const pkgJSON = await fs.readJSON(
-            path.join(absPkgPath, 'package.json')
+  const ecosystems = await tinyGlob(['*/'], {
+    cwd: absPackagesPath,
+    onlyDirectories: true,
+    expandDirectories: false
+  })
+  const manifest = {}
+  for (const eco_ of ecosystems) {
+    const eco = eco_.replace(/[/\\]$/, '')
+    if (eco === 'npm') {
+      const absEcoPath = path.join(absPackagesPath, eco)
+      const packages = []
+      const pkgJsonGlob = await tinyGlob(['*/package.json'], {
+        absolute: true,
+        cwd: absEcoPath
+      })
+      for await (const pkgJsonPath of pkgJsonGlob) {
+        const pkgJSON = await fs.readJSON(pkgJsonPath)
+        const { browser, engines, name, socket, version } = pkgJSON
+        const purlObj = PackageURL.fromString(`pkg:${eco}/${name}@${version}`)
+        const data = [purlObj.toString()]
+        const metaEntries = [
+          ...(browser ? [['browser', true]] : []),
+          ...(engines ? [['engines', engines]] : []),
+          ...(socket ? Object.entries(socket) : [])
+        ]
+        if (metaEntries.length) {
+          data[1] = Object.fromEntries(
+            metaEntries.sort((a, b) => localCompare(a[0], b[0]))
           )
-          const browser = !!pkgJSON.browser
-          const { engines } = pkgJSON
-          const data = [relPkgPath]
-
-          let metadata
-          if (browser) {
-            if (metadata === undefined) metadata = {}
-            metadata.browser = true
-          }
-          if (engines) {
-            if (metadata === undefined) metadata = {}
-            metadata.engines = engines
-          }
-          if (metadata) data[1] = metadata
-          entries.push(data.length === 1 ? data[0] : data)
         }
+        packages.push(data.length === 1 ? data[0] : data)
       }
-      if (entries.length) {
-        manifest.packages[cat.name] = entries.sort((a_, b_) => {
+      if (packages.length) {
+        manifest[eco] = packages.sort((a_, b_) => {
           const a = Array.isArray(a_) ? a_[0] : a_
           const b = Array.isArray(b_) ? b_[0] : b_
           return localCompare(a, b)

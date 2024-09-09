@@ -1,7 +1,7 @@
 'use strict'
 
 const EMPTY_FILE = '/* empty */'
-const LICENSE_ID = 'MIT'
+const LICENSE_SPDX_ID = 'MIT'
 const NPM_ORG = 'socketregistry'
 const NPM_SCOPE = `@${NPM_ORG}`
 const REPO_ORG = 'SocketDev'
@@ -17,32 +17,49 @@ function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1)
 }
 
-function createPackageJson(pkgName, pkgPath, options = {}) {
+function createPackageJson(pkgName, relPkgPath, options = {}) {
   const {
+    browser,
     engines,
     dependencies,
     files,
-    nodeBranch,
+    main,
     overrides,
+    sideEffects,
+    socket,
     version = VERSION
   } = options
+  const name = `${NPM_SCOPE}/${pkgName.replace(new RegExp(`^${escapeRegExp(NPM_SCOPE)}/`), '')}`
   return {
-    name: `${NPM_SCOPE}/${pkgName}`,
+    name,
     version,
-    license: LICENSE_ID,
+    license: LICENSE_SPDX_ID,
     repository: {
       type: 'git',
       url: `https://github.com/${REPO_ORG}/${REPO_NAME}`,
-      directory: pkgPath
+      directory: relPkgPath
     },
-    ...(nodeBranch ? { browser: './index.js' } : {}),
-    main: `${nodeBranch ? './node.js' : './index.js'}`,
-    sideEffects: false,
-    ...(dependencies ? { dependencies } : {}),
-    ...(overrides ? { overrides, resolutions: overrides } : {}),
-    ...(engines ? { engines } : {}),
-    files: files ?? ['*.d.ts', '*.js']
+    ...(browser ? { browser: './index.js' } : {}),
+    main: `${main ?? './index.js'}`,
+    sideEffects: sideEffects !== undefined && !!sideEffects,
+    ...(isObjectObject(dependencies) ? { dependencies } : {}),
+    ...(isObjectObject(overrides) ? { overrides, resolutions: overrides } : {}),
+    ...(isObjectObject(engines) ? { engines } : {}),
+    files: Array.isArray(files) ? files : ['*.d.ts', '*.js'],
+    ...(isObjectObject(socket)
+      ? { socket }
+      : { socket: { category: 'cleanup' } })
   }
+}
+
+// Inlined "escape-string-regexp":
+// https://www.npmjs.com/package/escape-string-regexp/v/5.0.0
+// MIT Licenced
+// Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+function escapeRegExp(string) {
+  // Escape characters with special meaning either inside or outside character sets.
+  // Use a simple backslash escape when it’s always valid, and a `\xnn` escape when the simpler form would be disallowed by Unicode patterns’ stricter grammar.
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d')
 }
 
 function formatJsSrc(src) {
@@ -50,9 +67,15 @@ function formatJsSrc(src) {
   return trimmed.length ? `'use strict'\n\n${trimmed}\n` : `${EMPTY_FILE}\n`
 }
 
+function isObjectObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
 module.exports = {
   capitalize,
   createPackageJson,
+  escapeRegExp,
   formatJsSrc,
+  isObjectObject,
   localCompare
 }

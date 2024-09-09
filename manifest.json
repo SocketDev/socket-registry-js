@@ -1,134 +1,414 @@
 {
-  "packages": {
-    "cleanup": [
-      "packages/cleanup/abab",
-      "packages/cleanup/array-buffer-byte-length",
-      "packages/cleanup/array-flatten",
-      "packages/cleanup/array-includes",
-      "packages/cleanup/array.from",
-      "packages/cleanup/array.of",
-      "packages/cleanup/array.prototype.at",
-      "packages/cleanup/array.prototype.every",
-      "packages/cleanup/array.prototype.filter",
-      "packages/cleanup/array.prototype.find",
-      "packages/cleanup/array.prototype.findlast",
-      "packages/cleanup/array.prototype.findlastindex",
-      "packages/cleanup/array.prototype.flat",
-      "packages/cleanup/array.prototype.flatmap",
-      "packages/cleanup/array.prototype.foreach",
-      "packages/cleanup/array.prototype.map",
-      "packages/cleanup/array.prototype.reduce",
-      [
-        "packages/cleanup/array.prototype.toreversed",
-        { "engines": { "node": ">=20.0.0" } }
-      ],
-      [
-        "packages/cleanup/array.prototype.tosorted",
-        { "engines": { "node": ">=20.0.0" } }
-      ],
-      "packages/cleanup/arraybuffer.prototype.slice",
-      "packages/cleanup/assert",
-      "packages/cleanup/asynciterator.prototype",
-      "packages/cleanup/available-typed-arrays",
-      "packages/cleanup/date",
-      ["packages/cleanup/deep-equal", { "browser": true }],
-      "packages/cleanup/define-properties",
-      "packages/cleanup/es-aggregate-error",
-      "packages/cleanup/es-define-property",
-      "packages/cleanup/es-get-iterator",
-      "packages/cleanup/es-set-tostringtag",
-      "packages/cleanup/es6-object-assign",
-      "packages/cleanup/function-bind",
-      "packages/cleanup/function.prototype.name",
-      "packages/cleanup/get-symbol-description",
-      "packages/cleanup/globalthis",
-      "packages/cleanup/gopd",
-      "packages/cleanup/harmony-reflect",
-      "packages/cleanup/has",
-      "packages/cleanup/has-property-descriptors",
-      "packages/cleanup/has-proto",
-      "packages/cleanup/has-symbols",
-      "packages/cleanup/has-tostringtag",
-      "packages/cleanup/hasown",
-      "packages/cleanup/internal-slot",
-      ["packages/cleanup/is-arguments", { "browser": true }],
-      ["packages/cleanup/is-array-buffer", { "browser": true }],
-      ["packages/cleanup/is-bigint", { "browser": true }],
-      ["packages/cleanup/is-boolean-object", { "browser": true }],
-      "packages/cleanup/is-core-module",
-      ["packages/cleanup/is-date-object", { "browser": true }],
-      ["packages/cleanup/is-generator-function", { "browser": true }],
-      ["packages/cleanup/is-map", { "browser": true }],
-      "packages/cleanup/is-nan",
-      "packages/cleanup/is-negative-zero",
-      ["packages/cleanup/is-number-object", { "browser": true }],
-      ["packages/cleanup/is-regex", { "browser": true }],
-      ["packages/cleanup/is-set", { "browser": true }],
-      ["packages/cleanup/is-shared-array-buffer", { "browser": true }],
-      ["packages/cleanup/is-string", { "browser": true }],
-      ["packages/cleanup/is-symbol", { "browser": true }],
-      ["packages/cleanup/is-typed-array", { "browser": true }],
-      ["packages/cleanup/is-weakmap", { "browser": true }],
-      "packages/cleanup/is-weakref",
-      ["packages/cleanup/is-weakset", { "browser": true }],
-      "packages/cleanup/isarray",
-      "packages/cleanup/iterator.prototype",
-      "packages/cleanup/json-stable-stringify",
-      "packages/cleanup/jsonify",
-      "packages/cleanup/number-is-nan",
-      "packages/cleanup/object-is",
-      "packages/cleanup/object-keys",
-      "packages/cleanup/object.assign",
-      "packages/cleanup/object.entries",
-      "packages/cleanup/object.fromentries",
-      "packages/cleanup/object.getownpropertydescriptors",
-      "packages/cleanup/object.getprototypeof",
-      [
-        "packages/cleanup/object.groupby",
-        { "engines": { "node": ">=21.0.0" } }
-      ],
-      "packages/cleanup/object.hasown",
-      "packages/cleanup/object.values",
-      "packages/cleanup/promise.allsettled",
-      "packages/cleanup/promise.any",
-      "packages/cleanup/querystringify",
-      "packages/cleanup/reflect.getprototypeof",
-      "packages/cleanup/reflect.ownkeys",
-      "packages/cleanup/regexp.prototype.flags",
-      "packages/cleanup/safe-array-concat",
-      "packages/cleanup/safe-buffer",
-      "packages/cleanup/safe-regex-test",
-      "packages/cleanup/safer-buffer",
-      "packages/cleanup/set-function-length",
-      "packages/cleanup/side-channel",
-      "packages/cleanup/string.fromcodepoint",
-      "packages/cleanup/string.prototype.at",
-      "packages/cleanup/string.prototype.codepointat",
-      "packages/cleanup/string.prototype.endswith",
-      "packages/cleanup/string.prototype.includes",
-      "packages/cleanup/string.prototype.matchall",
-      "packages/cleanup/string.prototype.padend",
-      "packages/cleanup/string.prototype.padstart",
-      "packages/cleanup/string.prototype.repeat",
-      "packages/cleanup/string.prototype.replaceall",
-      "packages/cleanup/string.prototype.split",
-      "packages/cleanup/string.prototype.startswith",
-      "packages/cleanup/string.prototype.trim",
-      "packages/cleanup/string.prototype.trimend",
-      "packages/cleanup/string.prototype.trimleft",
-      "packages/cleanup/string.prototype.trimright",
-      "packages/cleanup/string.prototype.trimstart",
-      "packages/cleanup/typed-array-buffer",
-      "packages/cleanup/typed-array-byte-length",
-      "packages/cleanup/typed-array-byte-offset",
-      "packages/cleanup/typed-array-length",
-      "packages/cleanup/typedarray",
-      "packages/cleanup/typedarray.prototype.slice",
-      "packages/cleanup/unbox-primitive",
-      "packages/cleanup/util.promisify",
-      "packages/cleanup/which-boxed-primitive",
-      "packages/cleanup/which-collection",
-      "packages/cleanup/which-typed-array"
+  "npm": [
+    ["pkg:npm/%40socketregistry/abab@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/array-buffer-byte-length@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array-flatten@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array-includes@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/array.from@1.0.0", { "category": "cleanup" }],
+    ["pkg:npm/%40socketregistry/array.of@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.at@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.every@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.filter@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.find@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.findlast@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.findlastindex@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.flat@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.flatmap@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.foreach@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.map@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.reduce@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.toreversed@1.0.0",
+      { "category": "cleanup", "engines": { "node": ">=20.0.0" } }
+    ],
+    [
+      "pkg:npm/%40socketregistry/array.prototype.tosorted@1.0.0",
+      { "category": "cleanup", "engines": { "node": ">=20.0.0" } }
+    ],
+    [
+      "pkg:npm/%40socketregistry/arraybuffer.prototype.slice@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/assert@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/asynciterator.prototype@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/available-typed-arrays@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/date@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/deep-equal@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/define-properties@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/es-aggregate-error@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/es-define-property@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/es-get-iterator@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/es-set-tostringtag@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/es6-object-assign@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/function-bind@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/function.prototype.name@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/get-symbol-description@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/globalthis@1.0.0", { "category": "cleanup" }],
+    ["pkg:npm/%40socketregistry/gopd@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/harmony-reflect@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/has-property-descriptors@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/has-proto@1.0.0", { "category": "cleanup" }],
+    ["pkg:npm/%40socketregistry/has-symbols@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/has-tostringtag@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/has@1.0.0", { "category": "cleanup" }],
+    ["pkg:npm/%40socketregistry/hasown@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/internal-slot@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-arguments@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-array-buffer@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-bigint@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-boolean-object@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-core-module@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-date-object@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-generator-function@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-map@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/is-nan@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/is-negative-zero@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-number-object@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-regex@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-set@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-shared-array-buffer@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-string@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-symbol@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-typed-array@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/is-weakmap@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/is-weakref@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/is-weakset@1.0.0",
+      { "browser": true, "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/isarray@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/iterator.prototype@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/json-stable-stringify@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/jsonify@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/number-is-nan@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/object-is@1.0.0", { "category": "cleanup" }],
+    ["pkg:npm/%40socketregistry/object-keys@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/object.assign@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.entries@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.fromentries@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.getownpropertydescriptors@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.getprototypeof@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.groupby@1.0.0",
+      { "category": "cleanup", "engines": { "node": ">=21.0.0" } }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.hasown@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/object.values@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/promise.allsettled@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/promise.any@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/querystringify@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/reflect.getprototypeof@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/reflect.ownkeys@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/regexp.prototype.flags@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/safe-array-concat@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/safe-buffer@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/safe-regex-test@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/safer-buffer@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/set-function-length@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/side-channel@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/string.fromcodepoint@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.at@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.codepointat@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.endswith@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.includes@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.matchall@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.padend@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.padstart@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.repeat@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.replaceall@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.split@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.startswith@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.trim@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.trimend@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.trimleft@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.trimright@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/string.prototype.trimstart@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/typed-array-buffer@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/typed-array-byte-length@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/typed-array-byte-offset@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/typed-array-length@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/typedarray.prototype.slice@1.0.0",
+      { "category": "cleanup" }
+    ],
+    ["pkg:npm/%40socketregistry/typedarray@1.0.0", { "category": "cleanup" }],
+    [
+      "pkg:npm/%40socketregistry/unbox-primitive@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/util.promisify@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/which-boxed-primitive@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/which-collection@1.0.0",
+      { "category": "cleanup" }
+    ],
+    [
+      "pkg:npm/%40socketregistry/which-typed-array@1.0.0",
+      { "category": "cleanup" }
     ]
-  }
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "name": "@socketregistry/es-set-tostringtag",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketDev/socket-registry-js",
+    "directory": "packages/npm/@socketregistry/es-set-tostringtag"
+  },
+  "main": "./index.js",
+  "sideEffects": false,
+  "files": [
+    "*.d.ts",
+    "*.js"
+  ],
+  "socket": {
+    "category": "cleanup"
+  }
+}

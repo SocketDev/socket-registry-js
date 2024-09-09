@@ -1,0 +1,22 @@
+{
+  "name": "@socketregistry/array.prototype.tosorted",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketDev/socket-registry-js",
+    "directory": "packages/npm/@socketregistry/array.prototype.tosorted"
+  },
+  "main": "./index.js",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js"
+  ],
+  "socket": {
+    "category": "cleanup"
+  }
+}
