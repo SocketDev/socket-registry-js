@@ -2,6 +2,6 @@
 
 const impl = require('./implementation')
 
-module.exports = function shimDateToISOString() {
+module.exports = function shimDateProtoToISOString() {
   return impl
 }

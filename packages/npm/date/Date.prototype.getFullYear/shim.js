@@ -2,6 +2,6 @@
 
 const impl = require('./implementation')
 
-module.exports = function shimDateGetFullYear() {
+module.exports = function shimDateProtoGetFullYear() {
   return impl
 }

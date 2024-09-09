@@ -2,6 +2,6 @@
 
 const impl = require('./implementation')
 
-module.exports = function shimDateToJSON() {
+module.exports = function shimDateProtoToJSON() {
   return impl
 }

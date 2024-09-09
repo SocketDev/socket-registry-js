@@ -2,6 +2,6 @@
 
 const impl = require('./implementation')
 
-module.exports = function shimDateGetUTCMonth() {
+module.exports = function shimDateProtoGetUTCMonth() {
   return impl
 }
