@@ -1,0 +1,30 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "Tests"
+    uses: SocketDev/workflows/.github/workflows/reusable-base.yml@master
+    with:
+      no-lockfile: true
+      npm-test-script: 'test-ci'
+      node-versions: '20'
+      # We currently have some issues on Windows that will have to wait to be fixed
+      # os: 'ubuntu-latest,windows-latest'
+      os: 'ubuntu-latest'

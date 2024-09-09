@@ -23,6 +23,7 @@
     "prepare": "husky",
     "test": "run-s check test:*",
     "test:unit": "tap",
+    "test-ci": "run-s build:* test:*",
     "update": "run-p -c --aggregate-output update:*",
     "update:npm:package-json": "node ./scripts/update-npm-package-json.js",
     "update:manifest": "node ./scripts/update-manifest.js"

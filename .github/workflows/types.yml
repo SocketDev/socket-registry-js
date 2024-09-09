@@ -1,0 +1,24 @@
+name: Type Checks
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '14 5 * * 1,3,5'
+
+permissions:
+  contents: read
+
+jobs:
+  type-check:
+    uses: SocketDev/workflows/.github/workflows/type-check.yml@master
+    with:
+      no-lockfile: true
+      ts-versions: ${{ github.event.schedule && 'next' || '5.4,next' }}
+      ts-libs: 'esnext'
