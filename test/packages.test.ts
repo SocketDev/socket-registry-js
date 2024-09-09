@@ -25,8 +25,8 @@ const findLeakedApiKey = (keys: any[]) =>
 
 const isDotFile = (filepath: string) => path.basename(filepath).startsWith('.')
 const isDotPattern = (pattern: string) => pattern.startsWith('.')
-
-const stripDotSlash = (filepath: string) => filepath.replace(/^\.\//, '')
+const prepareReqId = (id: string) =>
+  path.isAbsolute(id) || /^\.[/\\]/.test(id) ? id : `./${id}`
 
 describe('Ecosystems', async () => {
   const ecosystems = await tinyGlob(['*/'], {
@@ -57,7 +57,9 @@ describe('Ecosystems', async () => {
           const purlObj = PackageURL.fromString(`pkg:${eco}/${name}@${version}`)
           const absPkgPath = `${absEcoPath}/${purlObj.name}`
           const indexPath = path.join(absPkgPath, 'index.js')
-          const req = createRequire(indexPath)
+          const req_ = createRequire(indexPath)
+          const req = (id: string) => req_(prepareReqId(id))
+          req.resolve = (id: string) => req_.resolve(prepareReqId(id))
           const files = (
             await tinyGlob(['**/*'], {
               cwd: absPkgPath,
@@ -97,16 +99,12 @@ describe('Ecosystems', async () => {
 
           describe(`${name}:`, async () => {
             it('file exists for "main" field of package.json', async () => {
-              assert.doesNotThrow(() =>
-                req.resolve(`./${stripDotSlash(mainPath)}`)
-              )
+              assert.doesNotThrow(() => req.resolve(mainPath))
             })
 
             if (browserPath) {
               it('file exists for "browser" field of package.json', async () => {
-                assert.doesNotThrow(() =>
-                  req.resolve(`./${stripDotSlash(browserPath)}`)
-                )
+                assert.doesNotThrow(() => req.resolve(browserPath))
               })
             }
 
@@ -114,14 +112,19 @@ describe('Ecosystems', async () => {
               it('should have valid .json files', async () => {
                 for (const relJsonPath of jsonFiles) {
                   await assert.doesNotReject(
-                    fs.readJson(req.resolve(`./${relJsonPath}`))
+                    fs.readJson(req.resolve(relJsonPath))
                   )
                 }
               })
             }
 
-            it('should have a LICENSE file', () => {
+            it('should have a MIT LICENSE file', async () => {
               assert.ok(files.includes('LICENSE'))
+              assert.ok(
+                (
+                  await fs.readFile(path.join(absPkgPath, 'LICENSE'), 'utf8')
+                ).includes('MIT')
+              )
             })
 
             it('should have a .d.ts file for every .js file', async () => {
@@ -151,14 +154,12 @@ describe('Ecosystems', async () => {
               assert.deepEqual(filesFieldMatches, filesToCompare)
             })
 
-            const implPath = path.join(absPkgPath, 'implementation.js')
-            const polyPath = path.join(absPkgPath, 'polyfill.js')
-            const isEsShimLike =
-              fs.existsSync(implPath) && fs.existsSync(polyPath)
-
-            if (isEsShimLike) {
+            if (
+              files.includes('implementation.js') &&
+              files.includes('polyfill.js')
+            ) {
               describe('es-shim', async () => {
-                const pkgJson = require(pkgJsonPath)
+                const pkgJson = req(pkgJsonPath)
                 const nodeRange = pkgJson?.engines?.node
                 const skipping = nodeRange
                   ? !semver.satisfies(nodeVer, nodeRange)
@@ -168,21 +169,19 @@ describe('Ecosystems', async () => {
                   : ''
 
                 it('index.js exists for "main" field of package.json', async () => {
-                  assert.doesNotThrow(() =>
-                    req.resolve(`./${stripDotSlash(mainPath)}`)
-                  )
+                  assert.doesNotThrow(() => req.resolve(mainPath))
                 })
 
                 it('should not leak api', async t => {
                   if (skipping) return t.skip(skipMessage)
-                  const getPolyfill = require(polyPath)
+                  const getPolyfill = req('./polyfill.js')
                   const beforeKeys = Reflect.ownKeys(getPolyfill())
                   const maybeLeakBefore = findLeakedApiKey(beforeKeys)
                   assert.ok(
                     !maybeLeakBefore,
                     `leaking BEFORE index.js required ('${maybeLeakBefore}')`
                   )
-                  require(indexPath)
+                  req('./index.js')
                   const afterKeys = Reflect.ownKeys(getPolyfill())
                   assert.deepEqual(
                     afterKeys,
@@ -200,13 +199,16 @@ describe('Ecosystems', async () => {
 
                 it('getPolyfill() === implementation', async t => {
                   if (skipping) return t.skip(skipMessage)
-                  assert.strictEqual(require(polyPath)(), require(implPath))
+                  assert.strictEqual(
+                    req('./polyfill.js')(),
+                    req('./implementation.js')
+                  )
                 })
               })
             }
 
-            const localOverridesFiles = files.filter(
-              n => n.startsWith(overridesDir) && filesFieldMatches.includes(n)
+            const localOverridesFiles = filesFieldMatches.filter(n =>
+              n.startsWith(overridesDir)
             )
             const hasOverrides =
               !!pkgOverrides ||
