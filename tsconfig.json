@@ -32,5 +32,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "includes": ["packages/**/*.ts"]
+  "include": ["packages/**/*.ts", "test/**/*.ts"]
 }
