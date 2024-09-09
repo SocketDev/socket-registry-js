@@ -120,6 +120,10 @@ describe('Ecosystems', async () => {
               })
             }
 
+            it('should have a LICENSE file', () => {
+              assert.ok(files.includes('LICENSE'))
+            })
+
             it('should have a .d.ts file for every .js file', async () => {
               const jsFiles = files
                 .filter(n => n.endsWith(extJs) && !n.startsWith(overridesDir))
