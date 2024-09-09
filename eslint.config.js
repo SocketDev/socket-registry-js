@@ -42,7 +42,7 @@ module.exports = [
       // we want), and it's nice to await before returning anyways, since you get
       // a slightly more comprehensive stack trace upon promise rejection.
       '@typescript-eslint/return-await': ['error', 'always'],
-      'no-warning-comments': ['warn', { terms: ['fixme'] }]
+      'no-warning-comments': ['error']
     }
   },
   {
@@ -54,7 +54,7 @@ module.exports = [
   {
     files: ['packages/**/*.js', 'scripts/**/*.js'],
     rules: {
-      'no-warning-comments': ['warn', { terms: ['fixme'] }]
+      'no-warning-comments': ['error']
     }
   }
 ]
