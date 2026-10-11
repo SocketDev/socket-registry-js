@@ -12,7 +12,7 @@ import { createSectionHeader } from '@socketsecurity/lib-stable/stdio/header'
 import { deleteAsync } from 'del'
 import fastGlob from 'fast-glob'
 import { isMainModule } from '../fleet/process/is-main-module.mts'
-import { runMain } from '../fleet/process/run-main.mts'
+import { runMain } from '../fleet/process/main/run.mts'
 
 const logger = getDefaultLogger()
 

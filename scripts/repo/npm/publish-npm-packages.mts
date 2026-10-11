@@ -11,7 +11,7 @@
  *     run (publish-npm-packages-dispatch.mts). Nothing uploads from here. There
  *     is no local upload path and no `--force` that reaches one. The fleet
  *     allows exactly one npm upload invocation,
- *     `scripts/fleet/registry-infra/npm/publish-command.mts`, and it must run
+ *     `scripts/fleet/registry/npm/publish-command.mts`, and it must run
  *     where the trusted-publishing identity lives.
  */
 
@@ -19,8 +19,8 @@ import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 
 import { getEnv } from '../constants/env.mts'
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
-import type { ScriptMeta } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
+import type { ScriptMeta } from '../../fleet/process/main/run.mts'
 import {
   approveFlag,
   cliArgs,

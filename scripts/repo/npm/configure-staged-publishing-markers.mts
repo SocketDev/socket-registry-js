@@ -23,7 +23,7 @@
  *   challenge at all, whatever text renders around it.
  */
 
-import { INTERSTITIAL_MARKERS } from '../../fleet/registry-infra/npm/staged-browser-parse.mts'
+import { INTERSTITIAL_MARKERS } from '../../fleet/registry/npm/staged-browser-parse.mts'
 
 /**
  * Text reduced to the one form a marker phrase is matched against: lowercase,

@@ -10,7 +10,7 @@ import colors from 'yoctocolors-cjs'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 
 import { isMainModule } from '../fleet/process/is-main-module.mts'
-import { runMain } from '../fleet/process/run-main.mts'
+import { runMain } from '../fleet/process/main/run.mts'
 import { runCommand } from '../fleet/util/run-command.mts'
 import { ROOT_PATH } from './constants/paths.mts'
 

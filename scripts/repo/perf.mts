@@ -12,7 +12,7 @@ import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import fastGlob from 'fast-glob'
 
 import { isMainModule } from '../fleet/process/is-main-module.mts'
-import { runMain } from '../fleet/process/run-main.mts'
+import { runMain } from '../fleet/process/main/run.mts'
 import { PERF_NPM_PATH } from './constants/paths.mts'
 
 const logger = getDefaultLogger()

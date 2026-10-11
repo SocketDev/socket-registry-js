@@ -6,7 +6,7 @@
  *   publish-npm-packages.mts so that orchestrator stays under the file-size
  *   soft cap. The upload itself is NOT here. Every package's bytes go up
  *   through the one fleet-owned invocation, `uploadNpmPackage` in
- *   `scripts/fleet/registry-infra/npm/publish-command.mts`, which owns the
+ *   `scripts/fleet/registry/npm/publish-command.mts`, which owns the
  *   argv, the provenance decision, and the trusted-publishing auth posture.
  *   What this file owns is the part that is genuinely per-repo: publish order,
  *   retry policy, and how an approve batch refreshes its OTP. Same staged shape
@@ -35,9 +35,9 @@ import {
 } from './publish-npm-packages-failures.mts'
 import type { PublishState } from './publish-npm-packages-failures.mts'
 import { extractNpmError } from '../util/errors.mts'
-import { uploadNpmPackage } from '../../fleet/registry-infra/npm/publish-command.mts'
-import { listStagedPackages } from '../../fleet/registry-infra/npm/shared.mts'
-import type { StageListEntry } from '../../fleet/registry-infra/npm/shared.mts'
+import { uploadNpmPackage } from '../../fleet/registry/npm/publish-command.mts'
+import { listStagedPackages } from '../../fleet/registry/npm/shared.mts'
+import type { StageListEntry } from '../../fleet/registry/npm/shared.mts'
 import { isAlreadyPublished, runInherit } from '../../fleet/publish-shared.mts'
 
 const logger = getDefaultLogger()

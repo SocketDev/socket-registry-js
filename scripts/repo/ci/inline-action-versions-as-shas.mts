@@ -6,12 +6,13 @@ import { existsSync, promises as fs } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
+import { getGithubToken } from '@socketsecurity/lib-stable/env/github'
 import { errorMessage } from '@socketsecurity/lib-stable/errors/message'
 import { resolveRefToSha } from '@socketsecurity/lib-stable/github/refs'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
 import { ROOT_PATH } from '../constants/paths.mts'
 import { normalizePath } from '@socketsecurity/lib-stable/paths/normalize'
 
@@ -319,7 +320,7 @@ function printActionReferenceChanges(
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
   const dryRun = args.includes('--dry-run')
-  const token = process.env['GITHUB_TOKEN'] || ''
+  const token = getGithubToken() || ''
 
   // Parse --cwd argument.
   const cwdIndex = args.indexOf('--cwd')

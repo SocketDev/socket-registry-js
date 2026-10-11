@@ -29,7 +29,7 @@ import { pEach } from '@socketsecurity/lib-stable/promises/iterate'
 import semver from 'semver'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
 import { NPM_PACKAGES_PATH } from '../constants/paths.mts'
 import { resolveExportsSubpath } from '../util/exports-resolver.mts'
 import { encodeNpmRegistryName } from '../util/npm-registry-name.mts'

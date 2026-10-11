@@ -56,7 +56,7 @@ import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import { sleep } from '@socketsecurity/lib-stable/promises/timers'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
 import {
   loadStagedRoster,
   readStagedTrust,

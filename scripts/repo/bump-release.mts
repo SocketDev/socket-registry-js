@@ -25,7 +25,7 @@ import {
 } from '../fleet/changelog/sections.mts'
 import { describeAnchor } from '../fleet/lib/release-anchor.mts'
 import { REPO_ROOT } from '../fleet/paths.mts'
-import { runCapture } from '../fleet/registry-infra/shared.mts'
+import { runCapture } from '../fleet/registry/shared.mts'
 import {
   preparedVersionFrom,
   SUBJECT_CHANGELOG_PATH,

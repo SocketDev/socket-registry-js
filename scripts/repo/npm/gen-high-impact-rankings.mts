@@ -19,7 +19,7 @@ import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import { resolveOriginalPackageName } from '@socketsecurity/lib-stable/packages/normalize'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
 import {
   NPM_HIGH_IMPACT_MANIFEST_PATH,
   NPM_PACKAGES_PATH,

@@ -18,7 +18,7 @@ import process from 'node:process'
 import type { ValidationIssue, ValidationResult } from './types.mts'
 export type { ValidationIssue, ValidationResult } from './types.mts'
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
-import { runMain } from '../../fleet/process/run-main.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
 import { NPM_PACKAGES_PATH } from '../constants/paths.mts'
 
 const logger = getDefaultLogger()

@@ -79,7 +79,7 @@ export function formatPublishFailure(config: {
   const where =
     reason === 'approve'
       ? `\`pnpm stage approve\` for ${printName}, run locally.`
-      : `the staged upload of ${printName}, via scripts/fleet/registry-infra/npm/publish-command.mts.`
+      : `the staged upload of ${printName}, via scripts/fleet/registry/npm/publish-command.mts.`
   let fix: string
   if (isTrustedPublisherProblem(detail)) {
     fix = `Configure this package's trusted publisher at ${accessUrl} — repository socket-registry, workflow publish-npm-packages.yml, environment npm-publish — then re-dispatch.`

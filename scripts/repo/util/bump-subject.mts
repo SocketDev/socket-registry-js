@@ -22,7 +22,7 @@ import { REPO_ROOT } from '../../fleet/paths.mts'
 import {
   fetchLatestPublishedVersionChecked,
   fetchRegistryReleaseState,
-} from '../../fleet/registry-infra/npm/registry.mts'
+} from '../../fleet/registry/npm/registry.mts'
 
 import {
   SUBJECT_MANIFEST_PATH,

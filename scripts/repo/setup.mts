@@ -12,13 +12,14 @@ import path from 'node:path'
 import process from 'node:process'
 
 import { isWin32 } from '@socketsecurity/lib-stable/constants/platform'
+import { getEnvValue } from '@socketsecurity/lib-stable/env/rewire'
 import { isErrnoException } from '@socketsecurity/lib-stable/errors/predicates'
 import { safeDelete } from '@socketsecurity/lib-stable/fs/safe'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import { spawn } from '@socketsecurity/lib-stable/process/spawn/child'
 
 import { isMainModule } from '../fleet/process/is-main-module.mts'
-import { runMain } from '../fleet/process/run-main.mts'
+import { runMain } from '../fleet/process/main/run.mts'
 import { REPO_CACHE_DIR } from '../fleet/paths.mts'
 import { EXTERNAL_TOOLS_CONFIG_PATH } from './constants/paths.mts'
 import type { RootConfig } from './update-external-tools-config.mts'
@@ -39,8 +40,9 @@ const log = {
 // sits outside the dependency tree so a `clean` or an `rm -rf node_modules`
 // leaves the downloaded binaries in place.
 export function getCacheDir(): string {
-  if (process.env['EXTERNAL_TOOLS_CACHE']) {
-    return process.env['EXTERNAL_TOOLS_CACHE']
+  const cache = getEnvValue('EXTERNAL_TOOLS_CACHE')
+  if (cache) {
+    return cache
   }
   return path.join(REPO_CACHE_DIR, 'external-tools')
 }
