@@ -189,6 +189,7 @@ if (isMainModule(import.meta.url)) {
         })
     },
     {
+      json: 'result',
       describe: 'checks registry upstream port provenance',
       help: 'Usage: node scripts/repo/check/npm-port-provenance-is-current.mts [options]\n--online  Verify remote provenance\n--quiet  Suppress progress',
     },

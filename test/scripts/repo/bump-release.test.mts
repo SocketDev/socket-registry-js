@@ -18,7 +18,7 @@ vi.mock(import('node:fs'), async original => ({
   writeFileSync: write,
 }))
 vi.mock(
-  import('../../../scripts/fleet/registry-infra/shared.mts'),
+  import('../../../scripts/fleet/registry/shared.mts'),
   async original => ({
     __proto__: null,
     ...(await original()),

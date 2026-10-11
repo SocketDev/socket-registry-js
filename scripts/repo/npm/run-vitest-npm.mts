@@ -46,6 +46,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'runs registry npm override tests',
       help: 'Usage: pnpm test:npm [vitest options]',
     },

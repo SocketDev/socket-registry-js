@@ -426,6 +426,7 @@ const SCRIPT_META: ScriptMeta = {
   It never uploads: stage via publish-npm-packages.yml afterwards.
 
   --release   a release is expected — exit 1 when nothing can be staged`,
+  json: 'result',
 }
 
 /* c8 ignore start - entrypoint guard; exercised via subprocess */

@@ -486,6 +486,7 @@ async function main(): Promise<void> {
 
 if (isMainModule(import.meta.url)) {
   runMain(main, {
+    json: 'result',
     describe: 'wires registry override upstream tests',
     help: 'Usage: pnpm npm:wire-port <package...> [options]\n--dry-run  Preview changes\n--upstream <owner/repo>  Select upstream\n--tag <tag>  Select upstream tag\n--upstream-path <path>  Select local upstream',
   })

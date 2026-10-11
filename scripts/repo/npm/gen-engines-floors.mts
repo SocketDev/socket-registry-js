@@ -410,6 +410,7 @@ if (isMainModule(import.meta.url)) {
       main()
     },
     {
+      json: 'result',
       describe: 'detects minimum Node.js versions for overrides',
       help: 'Usage: node scripts/repo/npm/gen-engines-floors.mts [options]\n--only <name>  Select a package\n--write  Write engine ranges',
     },

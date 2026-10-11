@@ -481,6 +481,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'analyzes CI failure logs',
       help: 'Usage: pnpm analyze-ci-failures [options]\n--log-file <path>  Read a local log\n--log-url <url>  Read a remote log\n--verbose  Show detailed results',
     },

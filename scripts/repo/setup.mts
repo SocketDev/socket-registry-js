@@ -349,6 +349,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'installs verified registry external tools',
       help: 'Usage: pnpm setup [--quiet]',
     },

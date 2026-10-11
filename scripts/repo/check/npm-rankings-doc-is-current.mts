@@ -15,6 +15,7 @@ import path from 'node:path'
 import process from 'node:process'
 
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
+import { isAgent } from '@socketsecurity/lib-stable/env/agents'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
 import { runMain } from '../../fleet/process/main/run.mts'
@@ -84,7 +85,7 @@ export async function runRankingsDocCheck(
     actual !== undefined &&
     normalizeMarkdownTables(actual) === normalizeMarkdownTables(expected)
   ) {
-    if (!quiet) {
+    if (!quiet && !isAgent()) {
       logger.success(
         `npm-rankings-doc-is-current: ${relDoc} matches npm-high-impact ${manifest.version}.`,
       )
@@ -116,6 +117,7 @@ if (isMainModule(import.meta.url)) {
         })
     },
     {
+      json: 'result',
       describe: 'checks the generated npm impact rankings',
       help: 'Usage: node scripts/repo/check/npm-rankings-doc-is-current.mts [options]\n--quiet  Suppress progress',
     },

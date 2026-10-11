@@ -147,6 +147,7 @@ const SCRIPT_META: ScriptMeta = {
   --force-publish      CI: stage at HEAD, skipping version-bump commit detection
   --force-registry     CI: stage the registry package regardless of its version
   --skip-npm-packages  CI: stage the registry package only`,
+  json: 'result',
 }
 
 /* c8 ignore start - entrypoint guard; exercised via subprocess */

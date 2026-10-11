@@ -3,7 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import { gt } from '@socketsecurity/lib-stable/versions/compare'
-import { replaceVersion } from '../fleet/bump/manifest-write.mts'
+import { replaceVersion } from '../fleet/release/bump/manifest-write.mts'
 import {
   changelogCommitBumpLevel,
   changelogVersionHint,

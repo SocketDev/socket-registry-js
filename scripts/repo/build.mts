@@ -60,6 +60,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'builds the registry package',
       help: 'Usage: pnpm build [--src] [--types] [--watch] [--needed] [--quiet]',
     },

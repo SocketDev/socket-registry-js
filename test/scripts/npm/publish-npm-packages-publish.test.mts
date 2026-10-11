@@ -12,7 +12,7 @@ import type { PublishState } from '../../../scripts/repo/npm/publish-npm-package
 const uploadNpmPackage = vi.fn()
 
 vi.mock(
-  import('../../../scripts/fleet/registry-infra/npm/publish-command.mts'),
+  import('../../../scripts/fleet/registry/npm/publish-command.mts'),
   () => ({
     uploadNpmPackage: (...args: unknown[]) => uploadNpmPackage(...args),
   }),
@@ -22,7 +22,7 @@ const listStagedPackages = vi.fn()
 const isAlreadyPublished = vi.fn()
 const runInherit = vi.fn()
 const password = vi.fn()
-vi.mock(import('../../../scripts/fleet/registry-infra/npm/shared.mts'), () => ({
+vi.mock(import('../../../scripts/fleet/registry/npm/shared.mts'), () => ({
   listStagedPackages: (...args: unknown[]) => listStagedPackages(...args),
 }))
 vi.mock(import('../../../scripts/fleet/publish-shared.mts'), () => ({

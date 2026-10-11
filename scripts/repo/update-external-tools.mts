@@ -403,6 +403,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'refreshes pinned registry external tools',
       help: 'Usage: pnpm update-external-tools [--migrate]',
     },

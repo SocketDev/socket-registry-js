@@ -442,6 +442,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'surveys override dependency coverage',
       help: 'Usage: node scripts/repo/npm/survey-override-deps.mts [options]\n--offline  Use cached metadata\n--target <name>  Select an override\n--top <count>  Limit results\n--upstream  Include upstream dependencies\n--transitive  Include transitive dependencies',
     },

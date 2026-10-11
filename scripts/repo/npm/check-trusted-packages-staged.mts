@@ -483,6 +483,6 @@ export function formatStagedTrustProblem(report: StagedTrustReport): string {
     `Where: ${where}`,
     `Saw: ${stagedVersionCount} of ${publishedVersionCount} published version(s) carry the staged approver marker; dist-tag latest carries none.`,
     'Wanted: the version dist-tag latest points at published through the staged approval queue.',
-    `Fix: give the package a trusted publisher at the URL above — or, if one already exists, set its "Allowed actions" to "npm stage publish" — then republish. \`pnpm run npm:configure-staged\` reports every package needing it, creating or rebinding as each package requires; add --apply to write.`,
+    `Fix: give the package a trusted publisher at the URL above — or, if one already exists, set its "Allowed actions" to "npm stage publish" — then republish. \`pnpm run npm:trust --apply\` applies the current trusted-publisher configuration.`,
   ].join('\n')
 }

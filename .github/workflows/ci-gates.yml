@@ -3,7 +3,8 @@
 # referenced by ./ path — no cross-repo reusable workflow, no first-party
 # `uses:@sha`. Repo-specific jobs (test-npm-packages) live alongside the fleet
 # check/test shape under `jobs:`.
-name: "ci: gates"
+name: 'ci: gates'
+run-name: 'ci: gates'
 
 # PUSH, never pull_request. The fleet takes no outside contributions and
 # lands on main directly, so a pull_request trigger adds no coverage a push
@@ -38,8 +39,8 @@ jobs:
   # false-green; the test matrix stays at the default depth and runs the
   # zizmor Actions audit.
   check:
-    name: 🔎 Check
-    runs-on: ubuntu-latest
+    name: Check
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Bootstrap checkout
@@ -51,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SERVER_URL: ${{ github.server_url }}
           REPOSITORY: ${{ github.repository }}
-          TRIGGER_REF: ${{ github.ref }}
+          TRIGGER_REF: ${{ github.sha }}
         run: |
           set -euo pipefail
           git init -q
@@ -66,28 +67,30 @@ jobs:
             git fetch "${FETCH_ARGS[@]}"
           fi
           git checkout -q --detach FETCH_HEAD
-      - uses: ./.github/actions/fleet/setup-and-install
+      - name: Set up and install
+        uses: ./.github/actions/fleet/setup-and-install
         with:
           # Full history: the commit-history checks (AI-attribution,
           # release-boundary) read the default branch's history and refuse a
           # shallow clone rather than false-green.
           checkout-fetch-depth: '0'
-          payload-token-client-id: ${{ vars.SOCKET_PAYLOAD_CLIENT_ID }}
-          payload-token-private-key: ${{ secrets.SOCKET_PAYLOAD_APP_PRIVATE_KEY }}
+          payload-token-client-id: ${{ secrets.SOCKET_RELEASE_CLIENT_ID || vars.SOCKET_RELEASE_CLIENT_ID }}
+          payload-token-private-key: ${{ secrets.SOCKET_RELEASE_APP_PRIVATE_KEY }}
           socket-api-token: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
-      - uses: ./.github/actions/fleet/run-script
+      - name: Run validation
+        uses: ./.github/actions/fleet/run-script
         with:
           main-script: pnpm run check --all
 
   test:
-    name: 🧪 Test
+    name: Test
     strategy:
       fail-fast: false
       max-parallel: 4
       matrix:
         # JS/TS tests only need a fast Linux run; cross-platform behavior is
         # covered by unit tests, not the CI matrix.
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
@@ -97,7 +100,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SERVER_URL: ${{ github.server_url }}
           REPOSITORY: ${{ github.repository }}
-          TRIGGER_REF: ${{ github.ref }}
+          TRIGGER_REF: ${{ github.sha }}
         run: |
           set -euo pipefail
           git init -q
@@ -112,23 +115,25 @@ jobs:
             git fetch "${FETCH_ARGS[@]}"
           fi
           git checkout -q --detach FETCH_HEAD
-      - uses: ./.github/actions/fleet/setup-and-install
+      - name: Set up and install
+        uses: ./.github/actions/fleet/setup-and-install
         with:
           node-version: 24
-          payload-token-client-id: ${{ vars.SOCKET_PAYLOAD_CLIENT_ID }}
-          payload-token-private-key: ${{ secrets.SOCKET_PAYLOAD_APP_PRIVATE_KEY }}
+          payload-token-client-id: ${{ secrets.SOCKET_RELEASE_CLIENT_ID || vars.SOCKET_RELEASE_CLIENT_ID }}
+          payload-token-private-key: ${{ secrets.SOCKET_RELEASE_APP_PRIVATE_KEY }}
           socket-api-token: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
-      - uses: ./.github/actions/fleet/run-script
+      - name: Run validation
+        uses: ./.github/actions/fleet/run-script
         env:
           GH_TOKEN: ${{ github.token }}
         with:
           setup-script: pnpm run build
-          main-script: pnpm run test --all --fast
+          main-script: pnpm test --ci
 
   # Repo-owned: exercises the published-package build + npm-package test suite.
   test-npm-packages:
-    name: 🧪 Test NPM Packages
-    runs-on: ubuntu-latest
+    name: Test npm packages
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Bootstrap checkout
@@ -137,7 +142,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SERVER_URL: ${{ github.server_url }}
           REPOSITORY: ${{ github.repository }}
-          TRIGGER_REF: ${{ github.ref }}
+          TRIGGER_REF: ${{ github.sha }}
         run: |
           set -euo pipefail
           git init -q
@@ -152,13 +157,15 @@ jobs:
             git fetch "${FETCH_ARGS[@]}"
           fi
           git checkout -q --detach FETCH_HEAD
-      - uses: ./.github/actions/fleet/setup-and-install
+      - name: Set up and install
+        uses: ./.github/actions/fleet/setup-and-install
         with:
           node-version: 24
-          payload-token-client-id: ${{ vars.SOCKET_PAYLOAD_CLIENT_ID }}
-          payload-token-private-key: ${{ secrets.SOCKET_PAYLOAD_APP_PRIVATE_KEY }}
+          payload-token-client-id: ${{ secrets.SOCKET_RELEASE_CLIENT_ID || vars.SOCKET_RELEASE_CLIENT_ID }}
+          payload-token-private-key: ${{ secrets.SOCKET_RELEASE_APP_PRIVATE_KEY }}
           socket-api-token: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
-      - uses: ./.github/actions/fleet/run-script
+      - name: Run validation
+        uses: ./.github/actions/fleet/run-script
         env:
           GH_TOKEN: ${{ github.token }}
         with:
@@ -172,8 +179,8 @@ jobs:
   # release (sha256-verified against nodejs.org's published SHASUMS256 before
   # extraction) and dynamic-imports every override's node entry under it.
   floor-node-smoke:
-    name: 🧪 NPM Overrides on Floor Node
-    runs-on: ubuntu-latest
+    name: Floor node smoke
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Bootstrap checkout
@@ -182,7 +189,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SERVER_URL: ${{ github.server_url }}
           REPOSITORY: ${{ github.repository }}
-          TRIGGER_REF: ${{ github.ref }}
+          TRIGGER_REF: ${{ github.sha }}
         run: |
           set -euo pipefail
           git init -q
@@ -197,12 +204,14 @@ jobs:
             git fetch "${FETCH_ARGS[@]}"
           fi
           git checkout -q --detach FETCH_HEAD
-      - uses: ./.github/actions/fleet/setup-and-install
+      - name: Set up and install
+        uses: ./.github/actions/fleet/setup-and-install
         with:
           node-version: 24
-          payload-token-client-id: ${{ vars.SOCKET_PAYLOAD_CLIENT_ID }}
-          payload-token-private-key: ${{ secrets.SOCKET_PAYLOAD_APP_PRIVATE_KEY }}
+          payload-token-client-id: ${{ secrets.SOCKET_RELEASE_CLIENT_ID || vars.SOCKET_RELEASE_CLIENT_ID }}
+          payload-token-private-key: ${{ secrets.SOCKET_RELEASE_APP_PRIVATE_KEY }}
           socket-api-token: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
-      - uses: ./.github/actions/fleet/run-script
+      - name: Run validation
+        uses: ./.github/actions/fleet/run-script
         with:
           main-script: pnpm run test:npm:floor

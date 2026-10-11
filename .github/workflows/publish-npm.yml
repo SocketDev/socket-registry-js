@@ -836,6 +836,7 @@ jobs:
           install -m 0600 scripts/fleet/npm/scan/receipt.mts "$RUNNER_TEMP/npm-scan-receipt.mts"
           install -m 0600 scripts/fleet/registry/npm/scan/ndjson.mts "$RUNNER_TEMP/npm-registry-scan-ndjson.mts"
           install -m 0600 scripts/fleet/registry/npm/scan/run.mts "$RUNNER_TEMP/npm-registry-scan.mts"
+          install -m 0600 scripts/fleet/registry/npm/staged.mts "$RUNNER_TEMP/npm-registry-staged.mts"
       - name: Verify release source before setup
         shell: bash
         env:
@@ -927,6 +928,7 @@ jobs:
           install -m 0600 "$RUNNER_TEMP/npm-scan-receipt.mts" scripts/fleet/npm/scan/receipt.mts
           install -m 0600 "$RUNNER_TEMP/npm-registry-scan-ndjson.mts" scripts/fleet/registry/npm/scan/ndjson.mts
           install -m 0600 "$RUNNER_TEMP/npm-registry-scan.mts" scripts/fleet/registry/npm/scan/run.mts
+          install -m 0600 "$RUNNER_TEMP/npm-registry-staged.mts" scripts/fleet/registry/npm/staged.mts
       - name: Validate publish task name
         env:
           PUBLISH_TASK_NAME: ${{ inputs.task-name }}

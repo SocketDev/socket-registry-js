@@ -420,6 +420,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'checks package ownership and trusted publishing',
       help: 'Usage: pnpm check-trusted [options]\n--all  Include all Socket packages\n--debug  Show detailed package results',
     },

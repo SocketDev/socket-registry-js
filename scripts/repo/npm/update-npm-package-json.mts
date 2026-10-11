@@ -122,6 +122,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'updates registry package manifests',
       help: 'Usage: node scripts/repo/npm/update-npm-package-json.mts',
     },

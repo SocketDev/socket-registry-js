@@ -44,6 +44,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'updates the root Node.js engine range',
       help: 'Usage: node scripts/repo/npm/update-package-json.mts',
     },

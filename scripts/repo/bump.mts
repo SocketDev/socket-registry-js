@@ -211,6 +211,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'prepares a registry release version',
       help: 'Usage: pnpm bump [--dry-run] [--release-as <level>] [--write-only] [--empty-changelog-entry <text>]',
     },

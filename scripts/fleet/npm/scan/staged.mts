@@ -9,12 +9,17 @@ import process from 'node:process'
 
 import { safeDelete } from '@socketsecurity/lib-stable/fs/safe'
 
+import { GH_ENV_TOKEN_VARS } from '../../registry/gh-auth.mts'
+import { LONG_LIVED_NPM_TOKEN_ENV_VARS } from '../../registry/npm/auth-posture.mts'
 import { isMainModule } from '../../process/is-main-module.mts'
 import { runMain } from '../../process/main/run.mts'
 import type { ScriptMeta } from '../../process/main/run.mts'
 import type { ScriptResult } from '../../process/script-result.mts'
 import { resolveReleaseSubject } from '../../release/subject.mts'
-import { scanStagedEntryDetailed } from '../../registry/npm/scan/run.mts'
+import {
+  scanStagedEntryDetailed,
+  SOCKET_TOKEN_ENV_VAR,
+} from '../../registry/npm/scan/run.mts'
 import type { StagedScanVerdict } from '../../registry/npm/scan/run.mts'
 import {
   defaultDownloadStagedTarball,
@@ -27,9 +32,32 @@ import type { NpmRemoteScanReceipt } from './receipt.mts'
 
 const SHA_RE = /^[0-9a-f]{40}$/u
 const STAGE_ID_RE = /^[0-9a-f-]{36}$/u
+const SOURCE_BUILD_CREDENTIAL_ENV_NAMES = new Set(
+  [
+    ...GH_ENV_TOKEN_VARS,
+    ...LONG_LIVED_NPM_TOKEN_ENV_VARS,
+    SOCKET_TOKEN_ENV_VAR,
+    'ACTIONS_ID_TOKEN_REQUEST_TOKEN',
+    'ACTIONS_ID_TOKEN_REQUEST_URL',
+    'ACTIONS_RUNTIME_TOKEN',
+    'COREPACK_NPM_TOKEN',
+    'NPM_CONFIG_GLOBALCONFIG',
+    'NPM_CONFIG_USERCONFIG',
+    'SOCKET_PR_APP_PRIVATE_KEY',
+    'SOCKET_RELEASE_APP_PRIVATE_KEY',
+  ].map(name => name.toUpperCase()),
+)
+// Keep the legacy Socket token alias out of untrusted source build processes.
+const LEGACY_SOCKET_TOKEN_ENV_VAR = `${SOCKET_TOKEN_ENV_VAR.slice(0, -'TOKEN'.length)}KEY`
+// Match Git's environment-injected config count and indexed key/value pairs.
+const GIT_CREDENTIAL_CONFIG_ENV_NAME_RE =
+  /^GIT_CONFIG_(?:COUNT|KEY_\d+|VALUE_\d+)$/u
+// Match npm auth values and config file selectors across registry-specific keys.
+const NPM_CREDENTIAL_CONFIG_ENV_NAME_RE =
+  /^NPM_CONFIG_.*(?:_AUTH(?:TOKEN)?|_GLOBALCONFIG|_PASSWORD|_USERCONFIG|_USERNAME)$/u
 const RECEIPT_PATH = path.join(
   rootPath,
-  '.cache/fleet/npm-socket-staged-scan',
+  '.cache/fleet/npm-scan-staged',
   NPM_SCAN_RECEIPT_FILE,
 )
 
@@ -43,6 +71,28 @@ export interface ScanCiConfig {
   sourceSha: string
   stageId: string
   stageSha1: string
+}
+
+export function npmScanSourceBuildEnvironment(
+  env: NodeJS.ProcessEnv,
+): NodeJS.ProcessEnv {
+  const childEnv = { ...env }
+  const childEnvNames = Object.keys(childEnv)
+  for (let index = 0, { length } = childEnvNames; index < length; index += 1) {
+    const name = childEnvNames[index]
+    if (name !== undefined) {
+      const normalizedName = name.toUpperCase()
+      if (
+        SOURCE_BUILD_CREDENTIAL_ENV_NAMES.has(normalizedName) ||
+        normalizedName === LEGACY_SOCKET_TOKEN_ENV_VAR ||
+        GIT_CREDENTIAL_CONFIG_ENV_NAME_RE.test(normalizedName) ||
+        NPM_CREDENTIAL_CONFIG_ENV_NAME_RE.test(normalizedName)
+      ) {
+        childEnv[name] = undefined
+      }
+    }
+  }
+  return childEnv
 }
 
 interface ScanCiDeps {
@@ -135,6 +185,8 @@ function receiptFrom(
     packageName: config.packageName,
     packageVersion: config.packageVersion,
     policy: {
+      gate: 'malware',
+      blockingAlerts: verdict.blockingAlerts,
       errorAlerts: verdict.errorAlerts.length,
       totalAlerts: verdict.totalAlerts,
       warnAlerts: verdict.warnAlerts.length,
@@ -144,7 +196,7 @@ function receiptFrom(
     runAttempt: config.currentRunAttempt,
     runId: config.currentRunId,
     scanId: verdict.scanId,
-    schemaVersion: 1,
+    schemaVersion: 2,
     sourceSha: config.sourceSha,
     stageId: config.stageId,
     stageSha1: config.stageSha1,
@@ -153,11 +205,30 @@ function receiptFrom(
   })
 }
 
+async function buildAndPackScanTarball(
+  packageName: string,
+  packageVersion: string,
+): Promise<string | undefined> {
+  const env = npmScanSourceBuildEnvironment(process.env)
+  for (const [command, ...args] of [
+    [process.execPath, 'scripts/fleet/build/production.mts'],
+    ['pnpm', 'run', '--if-present', 'build:publish'],
+  ] as const) {
+    const result = await runCapture(command, args, rootPath, { env })
+    if (result.code !== 0) {
+      throw new Error(
+        `Scan artifact build failed. Where: ${command} ${args.join(' ')}. Saw: exit ${result.code}; wanted 0. Fix: repair the signed release build before scanning staged bytes.`,
+      )
+    }
+  }
+  return await defaultPackTarball(packageName, packageVersion, { env })
+}
+
 function runtimeDeps(packageName: string): ScanCiDeps {
   return {
     headSha: currentHeadSha,
     download: defaultDownloadStagedTarball,
-    pack: defaultPackTarball,
+    pack: buildAndPackScanTarball,
     scan: scanStagedEntryDetailed,
     subject(root) {
       const layout = resolveNpmWorkspaceLayout(root)

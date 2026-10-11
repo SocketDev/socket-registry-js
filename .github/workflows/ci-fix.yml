@@ -1,5 +1,5 @@
-name: "ci: fix"
-run-name: "ci: fix"
+name: 'ci: fix'
+run-name: 'ci: fix'
 
 on:
   workflow_dispatch:
@@ -11,6 +11,7 @@ on:
         default: ''
 
 permissions:
+  actions: read
   contents: read
 
 concurrency:
@@ -20,7 +21,7 @@ concurrency:
 jobs:
   repair:
     name: Repair
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       SOCKET_API_KEY: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
     steps:
@@ -59,6 +60,7 @@ jobs:
         uses: ./.github/actions/fleet/setup-and-install
         with:
           checkout: 'false'
+          cache-mode: none
           socket-api-token: ${{ secrets.SOCKET_API_TOKEN_FOR_CLI_AND_SFW }}
           payload-token-client-id: ${{ secrets.SOCKET_RELEASE_CLIENT_ID || vars.SOCKET_RELEASE_CLIENT_ID }}
           payload-token-private-key: ${{ secrets.SOCKET_RELEASE_APP_PRIVATE_KEY }}

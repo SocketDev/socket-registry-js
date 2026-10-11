@@ -213,6 +213,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'generates npm impact rankings',
       help: 'Usage: node scripts/repo/npm/gen-high-impact-rankings.mts [options]\n--write  Write the rankings document',
     },

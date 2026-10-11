@@ -24,6 +24,7 @@ import { gunzipSync } from 'node:zlib'
 
 import { httpJson, httpRequest } from '@socketsecurity/lib-stable/http-request'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
+import { isAgent } from '@socketsecurity/lib-stable/env/agents'
 import { resolveOriginalPackageName } from '@socketsecurity/lib-stable/packages/normalize'
 import { pEach } from '@socketsecurity/lib-stable/promises/iterate'
 import semver from 'semver'
@@ -283,7 +284,7 @@ export async function runSurfaceCheck(
     { concurrency: 8 },
   )
   if (allGaps.length === 0 && failures.length === 0) {
-    if (!opts.quiet) {
+    if (!opts.quiet && !isAgent()) {
       logger.success(
         `override-surface-covers-upstream-majors: ${dirs.length} overrides cover every supported upstream major's surface.`,
       )
@@ -328,6 +329,7 @@ if (isMainModule(import.meta.url)) {
         })
     },
     {
+      json: 'result',
       describe: 'checks override exports across upstream major versions',
       help: 'Usage: node scripts/repo/check/override-surface-covers-upstream-majors.mts [options]\n--online  Inspect upstream packages\n--only <name>  Select upstream\n--quiet  Suppress progress',
     },

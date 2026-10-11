@@ -353,6 +353,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'reproduces registry CI in a temporary checkout',
       help: 'Usage: pnpm validate-ci [options]\n--package <name>  Select packages\n--skip-build  Skip the build\n--skip-install  Skip installation\n--keep-temp  Keep the temporary checkout\n--verbose  Show detailed results',
     },

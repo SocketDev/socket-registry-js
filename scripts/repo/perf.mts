@@ -37,6 +37,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'runs registry package performance tests',
       help: 'Usage: pnpm perf',
     },

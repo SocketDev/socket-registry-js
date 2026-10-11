@@ -146,6 +146,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'sets registry npm package access',
       help: 'Usage: pnpm package-npm-access [options]\n--force, -f  Force the access update\n--quiet  Suppress progress',
     },

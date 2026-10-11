@@ -256,6 +256,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'cleans registry build and cache files',
       help: 'Usage: pnpm clean [options]\n--all  Clean everything except node_modules\n--cache  Clean caches\n--coverage  Clean coverage reports\n--dist  Clean build output\n--types  Clean declarations\n--modules  Clean node_modules\n--quiet, --silent  Suppress progress',
     },

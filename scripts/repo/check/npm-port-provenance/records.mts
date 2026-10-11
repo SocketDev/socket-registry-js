@@ -10,7 +10,7 @@
 import path from 'node:path'
 
 import { parseGitmodules } from '../../../fleet/git/modules.mts'
-import { parseBlocks } from '../../../fleet/gen/gitmodules-hash.mts'
+import { parseBlocks } from '../../../fleet/gitmodules/hash.mts'
 
 import type { GitmodulesEntry } from '../../../fleet/git/modules.mts'
 import type {

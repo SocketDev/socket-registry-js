@@ -17,12 +17,15 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { pathToFileURL } from 'node:url'
 // oxlint-disable-next-line socket/prefer-lib-versions-over-semver -- @socketsecurity/lib-stable has no ./external/semver export at the pinned version; semver is a devDependency (scripts/tests only, not bundled).
 import semver from 'semver'
 
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
+import { isAgent } from '@socketsecurity/lib-stable/env/agents'
 
+import { isMainModule } from '../../fleet/process/is-main-module.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
+import type { ScriptMeta } from '../../fleet/process/main/run.mts'
 import { FLOOR_NODE_VERSION } from '../npm/floor-node-smoke.mts'
 
 const logger = getDefaultLogger()
@@ -113,15 +116,20 @@ async function main(): Promise<number> {
     process.exitCode = 1
     return 1
   }
-  logger.success(
-    `all ${overrides.length} overrides floor at ${FLOOR_NODE_VERSION} — the smoke gate proves the declared floor`,
-  )
+  if (!isAgent()) {
+    logger.success(
+      `all ${overrides.length} overrides floor at ${FLOOR_NODE_VERSION} — the smoke gate proves the declared floor`,
+    )
+  }
   return 0
 }
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
-  void main()
+const SCRIPT_META: ScriptMeta = {
+  describe: 'checks that npm override engines floors match the floor Node pin',
+  help: 'Usage: node scripts/repo/check/floor-node-pin-matches-engines.mts',
+  json: 'result',
+}
+
+if (isMainModule(import.meta.url)) {
+  runMain(main, SCRIPT_META)
 }

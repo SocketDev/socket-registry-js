@@ -232,6 +232,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'creates a registry npm override',
       help: 'Usage: pnpm make-npm-override [package] [options]\n--force, -f  Replace existing output\n--quiet  Suppress progress',
     },

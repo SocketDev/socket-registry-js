@@ -1,6 +1,6 @@
 # @socketregistry
 
-[![Socket Badge](https://socket.dev/api/badge/npm/package/@socketsecurity/registry)](https://socket.dev/npm/package/@socketsecurity/registry)
+[![Socket Badge](https://badge.socket.dev/npm/package/@socketsecurity/registry)](https://socket.dev/npm/package/@socketsecurity/registry)
 [![CI](https://github.com/SocketDev/socket-registry/actions/workflows/ci.yml/badge.svg)](https://github.com/SocketDev/socket-registry/actions/workflows/ci.yml)
 <picture><img src="https://raw.githubusercontent.com/SocketDev/socket-registry/HEAD/assets/repo/coverage.svg?v=7bc666fd5d56" height="20" alt="Coverage" /></picture>
 

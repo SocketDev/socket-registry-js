@@ -155,6 +155,7 @@ function main(): void {
 
 if (isMainModule(import.meta.url)) {
   runMain(main, {
+    json: 'result',
     describe: 'runs registry fuzz tests',
     help: 'Usage: pnpm fuzz [vitest options]',
   })

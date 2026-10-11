@@ -398,6 +398,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'pins GitHub Actions to commit references',
       help: 'Usage: pnpm inline-action-shas [options]\n--dry-run  Preview changes\n--cwd <path>  Select the repository',
     },

@@ -488,6 +488,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'regenerates the registry manifest',
       help: 'Usage: node scripts/repo/npm/update-manifest.mts [options]\n--allow-removals  Allow intentional package removals\n--force, -f  Regenerate without changed files\n--quiet  Suppress progress',
     },

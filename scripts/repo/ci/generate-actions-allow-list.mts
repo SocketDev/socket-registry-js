@@ -222,6 +222,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'generates the GitHub Actions allow list',
       help: 'Usage: pnpm generate-actions-allow-list [options]\n--exact  Use exact commit references\n--copy  Copy the allow list',
     },

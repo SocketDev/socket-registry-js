@@ -22,9 +22,13 @@ import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { strictDeleteSync } from '../../fleet/fs/strict.mts'
+import { isMainModule } from '../../fleet/process/is-main-module.mts'
+import { runMain } from '../../fleet/process/main/run.mts'
+import type { ScriptMeta } from '../../fleet/process/main/run.mts'
 import { httpDownload } from '@socketsecurity/lib-stable/http-request/download'
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
 import { spawnSync } from '@socketsecurity/lib-stable/process/spawn/child'
+import { getEnvValue } from '@socketsecurity/lib-stable/env/rewire'
 
 const logger = getDefaultLogger()
 
@@ -81,7 +85,7 @@ async function ensureFloorNode(): Promise<string> {
     )
   }
   const baseDir =
-    process.env['FLOOR_NODE_DIR'] || process.env['RUNNER_TEMP'] || os.tmpdir()
+    getEnvValue('FLOOR_NODE_DIR') || getEnvValue('RUNNER_TEMP') || os.tmpdir()
   // Strip the archive suffix (.tar.gz / .tar.xz / .zip) to get the top-level
   // directory name the tarball extracts to (node-v<ver>-<os>-<arch>).
   const extractDir = path.join(
@@ -118,7 +122,7 @@ async function ensureFloorNode(): Promise<string> {
  * overrides ship no `main`). Condition preference mirrors Node's own
  * resolution for a `node` consumer; `types` never matches by construction.
  */
-function resolveNodeEntry(exp: unknown): string | undefined {
+export function resolveNodeEntry(exp: unknown): string | undefined {
   if (typeof exp === 'string') {
     return exp
   }
@@ -206,14 +210,14 @@ async function main(): Promise<void> {
   }
 }
 
-// Entrypoint-guarded: floor-node-pin-matches-engines (check --all) imports
-// FLOOR_NODE_VERSION from this module, which must not trigger a download.
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
-  main().catch((e: unknown) => {
-    logger.error(e)
-    process.exitCode = 1
-  })
+const SCRIPT_META: ScriptMeta = {
+  describe:
+    'imports every npm override entry with the declared floor Node version',
+  help: 'Usage: node scripts/repo/npm/floor-node-smoke.mts',
+  json: 'result',
+}
+
+// Importing FLOOR_NODE_VERSION does not trigger a download.
+if (isMainModule(import.meta.url)) {
+  runMain(main, SCRIPT_META)
 }

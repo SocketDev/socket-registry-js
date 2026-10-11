@@ -479,6 +479,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'validates registry package tests',
       help: 'Usage: pnpm validate-packages [options]\n--package <name>  Select packages\n--concurrency <count>  Set validation concurrency\n--fix  Apply supported fixes\n--verbose  Show detailed results',
     },

@@ -240,6 +240,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'prints the GitHub Actions dependency tree',
       help: 'Usage: pnpm generate-actions-tree',
     },

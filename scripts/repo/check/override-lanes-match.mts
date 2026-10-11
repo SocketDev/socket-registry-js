@@ -21,6 +21,7 @@ import path from 'node:path'
 import process from 'node:process'
 
 import { getDefaultLogger } from '@socketsecurity/lib-stable/logger/default'
+import { isAgent } from '@socketsecurity/lib-stable/env/agents'
 
 import { isMainModule } from '../../fleet/process/is-main-module.mts'
 import { runMain } from '../../fleet/process/main/run.mts'
@@ -234,7 +235,7 @@ export function runOverrideLanesCheck(
   const quiet = opts.quiet === true
   const report = collectLaneDivergences(repoRoot)
   if (report.divergences.length === 0) {
-    if (!quiet) {
+    if (!quiet && !isAgent()) {
       logger.success(
         `override-lanes-match: ${report.packagesCompared} dual-lane overrides agree on behavior and name (${report.upstreamNamesChecked} names checked against the pinned upstream, ${report.upstreamNamesUnavailable} lane-vs-lane only - no loadable upstream copy on disk).`,
       )
@@ -270,6 +271,7 @@ if (isMainModule(import.meta.url)) {
       })
     },
     {
+      json: 'result',
       describe: 'checks override test lane assignments',
       help: 'Usage: node scripts/repo/check/override-lanes-match.mts [options]\n--quiet  Suppress progress',
     },
