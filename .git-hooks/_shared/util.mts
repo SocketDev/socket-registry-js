@@ -4,7 +4,7 @@
 // comment / commit-message / supply-chain scanners, file + git IO, and the
 // staged-state gates. Each hook imports `getDefaultLogger` from
 // `@socketsecurity/lib-stable/logger/default` directly for output; this module
-// stays import-light so the cost of `import '../_shared/helpers.mts'` is bounded.
+// stays import-light so the cost of `import '../_shared/util.mts'` is bounded.
 //
 // Requires Node 24+ for default-on native .mts type-stripping, no flag needed.
 import './node-version.mts'

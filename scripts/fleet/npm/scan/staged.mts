@@ -16,6 +16,8 @@ import { runMain } from '../../process/main/run.mts'
 import type { ScriptMeta } from '../../process/main/run.mts'
 import type { ScriptResult } from '../../process/script-result.mts'
 import { resolveReleaseSubject } from '../../release/subject.mts'
+import { prepareNpmScanArtifactFallback } from './artifact.mts'
+import type { PreparedNpmReleaseArtifact } from '../publish/artifact/prepare.mts'
 import {
   scanStagedEntryDetailed,
   SOCKET_TOKEN_ENV_VAR,
@@ -99,6 +101,7 @@ interface ScanCiDeps {
   headSha: () => Promise<string>
   download: typeof defaultDownloadStagedTarball
   pack: typeof defaultPackTarball
+  cleanupPack?: (() => Promise<void>) | undefined
   scan: typeof scanStagedEntryDetailed
   subject: (root: string) => { name: string; version: string }
   writeReceipt: (receipt: NpmRemoteScanReceipt) => Promise<void>
@@ -224,18 +227,34 @@ async function buildAndPackScanTarball(
   return await defaultPackTarball(packageName, packageVersion, { env })
 }
 
-function runtimeDeps(packageName: string): ScanCiDeps {
+function runtimeDeps(config: ScanCiConfig): ScanCiDeps {
+  let preparedArtifact: PreparedNpmReleaseArtifact | undefined
   return {
     headSha: currentHeadSha,
     download: defaultDownloadStagedTarball,
-    pack: buildAndPackScanTarball,
+    async pack(packageName, packageVersion) {
+      preparedArtifact = await prepareNpmScanArtifactFallback(config)
+      if (preparedArtifact) {
+        return await preparedArtifact.packTarball(packageName, packageVersion)
+      }
+      return await buildAndPackScanTarball(packageName, packageVersion)
+    },
+    async cleanupPack() {
+      const artifact = preparedArtifact
+      preparedArtifact = undefined
+      if (artifact) {
+        await artifact.cleanup()
+      }
+    },
     scan: scanStagedEntryDetailed,
     subject(root) {
       const layout = resolveNpmWorkspaceLayout(root)
       if (layout.kind === 'single') {
         return resolveReleaseSubject(root)
       }
-      const member = layout.packages.find(pkg => pkg.name === packageName)
+      const member = layout.packages.find(
+        pkg => pkg.name === config.packageName,
+      )
       if (!member) {
         throw new Error('Scan package is absent from the release workspace.')
       }
@@ -249,7 +268,7 @@ export async function runScanCi(
   config: ScanCiConfig,
   options: { deps?: ScanCiDeps | undefined } = {},
 ): Promise<NpmRemoteScanReceipt> {
-  const deps = options.deps ?? runtimeDeps(config.packageName)
+  const deps = options.deps ?? runtimeDeps(config)
   const headSha = await deps.headSha()
   if (headSha !== config.sourceSha) {
     throw new Error(
@@ -265,15 +284,16 @@ export async function runScanCi(
       `Package mismatch. Where: signed release subject. Saw: ${subject.name}@${subject.version}; wanted ${config.packageName}@${config.packageVersion}. Fix: use the exact signed bump SHA.`,
     )
   }
-  const downloaded = await deps.download(config.stageId)
-  const tarball =
-    downloaded ?? (await deps.pack(config.packageName, config.packageVersion))
-  if (!tarball) {
-    throw new Error(
-      `Staged tarball unavailable. Where: npm stage ${config.stageId}. Saw: neither an authenticated download nor a source-built package; wanted bytes matching ${config.stageSha1}. Fix: restore staged-download authentication or build the signed release source before scanning.`,
-    )
-  }
+  let tarball: string | undefined
   try {
+    const downloaded = await deps.download(config.stageId)
+    tarball =
+      downloaded ?? (await deps.pack(config.packageName, config.packageVersion))
+    if (!tarball) {
+      throw new Error(
+        `Staged tarball unavailable. Where: npm stage ${config.stageId}. Saw: neither an authenticated download nor a source-built package; wanted bytes matching ${config.stageSha1}. Fix: restore staged-download authentication or build the signed release source before scanning.`,
+      )
+    }
     if (!downloaded) {
       const sourcePackSha1 = crypto.hash('sha1', await fs.readFile(tarball))
       if (sourcePackSha1 !== config.stageSha1) {
@@ -293,7 +313,13 @@ export async function runScanCi(
     await deps.writeReceipt(receipt)
     return receipt
   } finally {
-    await safeDelete(tarball)
+    try {
+      if (tarball !== undefined) {
+        await safeDelete(tarball)
+      }
+    } finally {
+      await deps.cleanupPack?.()
+    }
   }
 }
 
