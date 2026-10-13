@@ -38,6 +38,10 @@ socket optimize
 
 `socket optimize` analyzes your dependencies and suggests optimized replacements from the Socket Registry.
 
+### Documentation
+
+See the [package catalog and override guide](./docs/api.md) for manifest fields, lookup APIs, override categories, compatibility evidence, and package inventory links.
+
 ### What are package overrides?
 
 Package overrides are improved versions of existing npm packages:
