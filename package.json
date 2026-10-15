@@ -64,6 +64,7 @@
     "ci:check": "node scripts/fleet/commands/run.mts ci check",
     "ci:diagnose": "node .claude/skills/fleet/agent-ci/run.mts",
     "ci:fix": "node scripts/fleet/ci/fix/run.mts",
+    "ci:fix:preview": "node scripts/fleet/ci/fix/preview.mts",
     "ci:gates": "node scripts/fleet/ci/gates/run.mts",
     "ci:local": "node scripts/fleet/ci/local/run.mts run --all --quiet --github-token --pause-on-failure",
     "ci:test": "node scripts/fleet/commands/run.mts ci test",
@@ -82,6 +83,8 @@
     "cover:types": "node scripts/fleet/cover/types/run.mts",
     "cover:update": "node scripts/fleet/commands/run.mts cover update",
     "crates:auth": "node scripts/fleet/registry/cargo/auth.mts",
+    "credentials": "node scripts/fleet/credentials/run.mts",
+    "credentials:gh": "node scripts/fleet/credentials/gh/run.mts",
     "credentials:migrate": "node scripts/fleet/credentials/migrate.mts",
     "depot:auth": "node scripts/fleet/registry/depot/browser-auth.mts",
     "doctor": "node scripts/fleet/doctor.mts",
@@ -102,7 +105,10 @@
     "generate-actions-allow-list": "node scripts/repo/ci/generate-actions-allow-list.mts",
     "generate-actions-tree": "node scripts/repo/ci/show-actions-tree.mts",
     "gh:auth": "node scripts/fleet/gh-auth.mts",
+    "git:admin:merge": "node scripts/fleet/git/admin/merge.mts",
+    "git:admin:push": "node scripts/fleet/git/admin/push.mts",
     "git:deliver": "node scripts/fleet/git/deliver/cli.mts",
+    "git:history": "node scripts/fleet/git/history/cli.mts",
     "github:browser": "node scripts/fleet/ai/browser/drive/github.com/auth/run.mts",
     "hide-comments": "node scripts/fleet/github/comments/hide.mts",
     "hooks:global:sync": "node scripts/fleet/sync-global-hooks.mts",
@@ -242,12 +248,9 @@
     "weekly-update": "node scripts/fleet/weekly-update.mts",
     "weekly-update:ci": "gh workflow run cron-weekly-update.yml",
     "worktree:create": "node scripts/fleet/worktree/create/run.mts",
-    "ci:fix:preview": "node scripts/fleet/ci/fix/preview.mts",
-    "credentials:gh": "node scripts/fleet/credentials/gh/run.mts",
-    "credentials": "node scripts/fleet/credentials/run.mts",
-    "git:admin:merge": "node scripts/fleet/git/admin/merge.mts",
-    "git:admin:push": "node scripts/fleet/git/admin/push.mts",
-    "git:history": "node scripts/fleet/git/history/cli.mts"
+    "notion:planning:update": "node scripts/fleet/notion/planning/update.mts",
+    "notion:standup:update": "node scripts/fleet/notion/standup/update.mts",
+    "workflow:actions:lock": "node scripts/fleet/workflow/actions-lock/run.mts"
   },
   "devDependencies": {
     "@babel/core": "catalog:",
@@ -394,7 +397,7 @@
   },
   "engines": {
     "node": ">=24",
-    "npm": "^11.19.0 || >=12.0.2",
+    "npm": ">=12.2.0",
     "pnpm": ">=12.12.0"
   },
   "allowScripts": {
